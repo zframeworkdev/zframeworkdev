@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Drama Reels Are Made</title>
+<meta name="description" content="How creators produce AI-generated short drama reels for TikTok, Reels, and Shorts — the workflow and the tools behind it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0b10;
+    --bg-elev:#171219;
+    --bg-card:#1c1620;
+    --border:#2e2530;
+    --text:#f2ece7;
+    --text-dim:#b8adb8;
+    --text-faint:#7d7284;
+    --accent:#e9634b;
+    --accent-soft:#e9634b1a;
+    --accent2:#f0b429;
+    --track-a:#4d8fe0;
+    --track-b:#e9634b;
+    --radius:14px;
+    --serif:'Fraunces', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{background:var(--bg);}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:840px;margin:0 auto;padding:0 24px;}
+
+  header.hero{
+    padding:88px 0 56px;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, var(--accent-soft), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, #4d8fe01a, transparent 60%);
+    border-bottom:1px solid var(--border);
+  }
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(34px, 5.5vw, 54px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+  }
+  .dek{
+    font-size:19px;
+    color:var(--text-dim);
+    max-width:60ch;
+    margin:0;
+  }
+
+  section{padding:56px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+
+  h2{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(24px, 3.5vw, 30px);
+    margin:0 0 8px;
+  }
+  .section-sub{color:var(--text-faint);font-size:15px;margin:0 0 32px;}
+
+  /* two-track intro */
+  .tracks{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .track-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:24px;
+    border-top:3px solid var(--track-color);
+  }
+  .track-card.a{--track-color:var(--track-a);}
+  .track-card.b{--track-color:var(--track-b);}
+  .track-label{
+    font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--track-color);margin:0 0 10px;
+  }
+  .track-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 10px;}
+  .track-card p{color:var(--text-dim);font-size:15px;margin:0;}
+
+  /* workflow steps */
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:20px;
+    padding:22px 0;
+    border-top:1px solid var(--border);
+  }
+  .step:first-child{border-top:none;}
+  .step-num{
+    font-family:var(--serif);
+    font-size:20px;
+    font-weight:600;
+    color:var(--accent);
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--accent-soft);
+    border-radius:50%;
+  }
+  .step h3{font-size:17px;font-weight:600;margin:2px 0 6px;font-family:var(--sans);}
+  .step p{color:var(--text-dim);font-size:15px;margin:0;}
+  .step .tools{
+    margin-top:10px;
+    display:flex;flex-wrap:wrap;gap:8px;
+  }
+  .pill{
+    font-size:12.5px;
+    font-weight:500;
+    padding:4px 11px;
+    border-radius:100px;
+    background:var(--bg-elev);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+  }
+
+  /* tool table */
+  .table-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;}
+  thead th{
+    text-align:left;
+    font-size:12px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--text-faint);
+    font-weight:600;
+    padding:14px 18px;
+    background:var(--bg-elev);
+    border-bottom:1px solid var(--border);
+  }
+  tbody td{
+    padding:16px 18px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+    color:var(--text-dim);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.tool-name{color:var(--text);font-weight:600;white-space:nowrap;}
+  tbody tr:hover{background:var(--bg-card);}
+
+  /* callout */
+  .callout{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent2);
+    border-radius:10px;
+    padding:22px 24px;
+  }
+  .callout h3{
+    font-family:var(--sans);
+    font-size:15px;
+    font-weight:700;
+    color:var(--accent2);
+    margin:0 0 8px;
+  }
+  .callout p{margin:0;color:var(--text-dim);font-size:15px;}
+
+  /* format specs */
+  .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .spec-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:20px;
+    text-align:center;
+  }
+  .spec-value{
+    font-family:var(--serif);
+    font-size:26px;
+    font-weight:600;
+    color:var(--accent);
+    margin:0 0 6px;
+  }
+  .spec-label{font-size:13px;color:var(--text-faint);}
+
+  footer{padding:40px 0 80px;}
+  footer h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);font-weight:600;margin:0 0 16px;}
+  .sources{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+  .sources a{
+    color:var(--text-dim);
+    text-decoration:none;
+    font-size:14px;
+    border-bottom:1px solid transparent;
+  }
+  .sources a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  .fine{color:var(--text-faint);font-size:13px;margin-top:32px;}
+
+  @media (max-width:640px){
+    header.hero{padding:56px 0 40px;}
+    section{padding:40px 0;}
+    .tracks{grid-template-columns:1fr;}
+    .specs{grid-template-columns:1fr;}
+    .step{grid-template-columns:36px 1fr;gap:14px;}
+    .step-num{width:36px;height:36px;font-size:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Field notes</p>
+    <h1>How AI drama reels actually get made</h1>
+    <p class="dek">The soap-opera-style short dramas flooding TikTok, Reels, and Shorts — secret heirs, revenge weddings, billionaire disguises — split into two completely different production tracks. Here's how each one works.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Two different things wearing the same look</h2>
+    <p class="section-sub">Easy to conflate — they share the vertical format and the melodrama, not the production method.</p>
+    <div class="tracks">
+      <div class="track-card a">
+        <p class="track-label">Track 1</p>
+        <h3>Real actors, real cheap</h3>
+        <p>Apps like DramaBox and ReelShort run actual shoots — real actors and crews, produced fast and cheap, then localized and dubbed for other markets using AI voice tools. The footage itself isn't AI-generated.</p>
+      </div>
+      <div class="track-card b">
+        <p class="track-label">Track 2</p>
+        <h3>Fully AI-generated</h3>
+        <p>What's exploding on TikTok and Reels: no cameras, no actors, no sets. The entire soap-opera look — faces, motion, voices — is synthesized. This is the workflow below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The workflow</h2>
+    <p class="section-sub">Five stages, usually chained across two or three separate tools — no single app does the whole job.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Script &amp; story beats</h3>
+          <p>An LLM writes short, formulaic episode scripts — secret-identity and revenge-plot templates — with a hook in the first 3 seconds and a cliffhanger at the end of each episode.</p>
+          <div class="tools"><span class="pill">ChatGPT</span><span class="pill">Claude</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Character design</h3>
+          <p>Reference images of one consistent "actor" — same face, same outfit, multiple angles — generated up front so every later shot can match back to them.</p>
+          <div class="tools"><span class="pill">Midjourney</span><span class="pill">Dreamina</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Video generation</h3>
+          <p>The core step: animating those reference images into moving footage. Different engines are chosen for different strengths — multi-shot continuity, character consistency, or general shot quality.</p>
+          <div class="tools"><span class="pill">Kling AI</span><span class="pill">Hailuo (MiniMax)</span><span class="pill">Runway Gen-4.5</span><span class="pill">Sora 2</span><span class="pill">Veo 3</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Voice</h3>
+          <p>Cloned or stylized dramatic voiceover and dialogue dubbing, layered onto the silent generated clips.</p>
+          <div class="tools"><span class="pill">ElevenLabs</span><span class="pill">CapCut TTS</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>Edit &amp; assembly</h3>
+          <p>Clips get cut to pace, captioned, scored, and formatted vertically — mobile-native, built around the same app most creators already post from.</p>
+          <div class="tools"><span class="pill">CapCut</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Tools by stage</h2>
+    <p class="section-sub">What each one is actually best at, per current head-to-head coverage.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Stage</th><th>Tool</th><th>Known for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Video generation</td><td class="tool-name">Kling AI</td><td>Multi-shot continuity — describe a whole sequence in one prompt; "Elements" feature built for character consistency across shots</td></tr>
+          <tr><td>Video generation</td><td class="tool-name">Hailuo (MiniMax)</td><td>Strongest free tier; a common starting point for hobbyists, notably good at holding the same face across separate generations</td></tr>
+          <tr><td>Video generation</td><td class="tool-name">Runway Gen-4.5</td><td>Strongest general all-rounder; best when animating from a reference image rather than text alone</td></tr>
+          <tr><td>Video generation</td><td class="tool-name">Sora 2 / Veo 3</td><td>Can render synchronized audio and dialogue in the same generation pass</td></tr>
+          <tr><td>Voice</td><td class="tool-name">ElevenLabs</td><td>Voice cloning and dramatic narration/dubbing</td></tr>
+          <tr><td>Editing</td><td class="tool-name">CapCut</td><td>Mobile-native vertical editing with AI captions/TTS built into the same posting workflow</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Format, by the numbers</h2>
+    <div class="specs">
+      <div class="spec-card">
+        <p class="spec-value">9:16</p>
+        <p class="spec-label">1080×1920, vertical</p>
+      </div>
+      <div class="spec-card">
+        <p class="spec-value">60–180s</p>
+        <p class="spec-label">per episode</p>
+      </div>
+      <div class="spec-card">
+        <p class="spec-value">3s</p>
+        <p class="spec-label">hook, then a cliffhanger close</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="callout">
+      <h3>Why the "same actor" looks so consistent</h3>
+      <p>No single generator holds a character steady for an entire series on its own. Creators chain tools deliberately: one engine for raw generation, a second specifically for character-consistency (reference-image conditioning, like Kling's Elements or Runway's image-to-video mode), then CapCut for the vertical edit. The consistency comes from the pipeline, not any one model.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Sources</h3>
+    <ul class="sources">
+      <li><a href="https://aiworkflows.tools/workflows/short-drama" target="_blank" rel="noopener">Best AI Tools for Short Drama in 2026: Vertical 5-Step Workflow — AI Workflows</a></li>
+      <li><a href="https://aiworkflows.tools/blog/best-ai-tools-for-short-drama-2026" target="_blank" rel="noopener">Best AI Tools for Short Drama 2026: 8 Generators Ranked — AI Workflows Blog</a></li>
+      <li><a href="https://mcplato.com/en/blog/ai-short-drama-generation-tools-2026-production-workflow/" target="_blank" rel="noopener">AI Short Drama Tools in 2026: Why the Real Breakthrough Is the Production Workflow</a></li>
+      <li><a href="https://kling.ai/blog/best-ai-video-generator-2026-kling-ai" target="_blank" rel="noopener">How to Choose the Best AI Video Generator in 2026 — Kling AI</a></li>
+      <li><a href="https://www.aimagicx.com/blog/ai-video-generation-showdown-2026" target="_blank" rel="noopener">AI Video Generation Showdown 2026: Kling v3 vs MiniMax Hailuo 02 vs Runway Gen-4.5 vs Luma</a></li>
+      <li><a href="https://www.toolcenter.ai/en/articles/ai-video-generation-tools-2026" target="_blank" rel="noopener">AI Video Tools May 2026 — Sora 2 vs Veo 3 vs Kling vs Runway Compared</a></li>
+    </ul>
+    <p class="fine">Compiled August 2026. Tool rankings in this fast-moving space shift often — treat names over specifics as the durable takeaway.</p>
+  </div>
+</footer>
+
+</body>
+</html>
