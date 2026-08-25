@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proposal 1 of 4 — Overview &amp; Architecture</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --raised: #FFFFFF;
+    --ink: #2A211C;
+    --ink-soft: #6B5D53;
+    --line: #E6DFD6;
+    --accent: #B96A32;
+    --accent-deep: #96501F;
+    --accent-tint: rgba(185, 106, 50, 0.09);
+    --accent2: #1E6B4E;
+    --accent2-deep: #0F4430;
+    --accent2-tint: rgba(30, 107, 78, 0.09);
+    --good: #5E7A48;
+    --warn: #9A7420;
+    --crit: #B0392E;
+    --shadow: 0 1px 2px rgba(42, 33, 28, 0.06), 0 8px 24px rgba(42, 33, 28, 0.05);
+    --sans: "Avenir Next", Avenir, Futura, "Century Gothic", "Segoe UI", sans-serif;
+    --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
+    --mono: Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  :root[data-theme="light"] {
+    --bg: #FFFFFF;
+    --raised: #FFFFFF;
+    --ink: #2A211C;
+    --ink-soft: #6B5D53;
+    --line: #E6DFD6;
+    --accent: #B96A32;
+    --accent-deep: #96501F;
+    --accent-tint: rgba(185, 106, 50, 0.09);
+    --accent2: #1E6B4E;
+    --accent2-deep: #0F4430;
+    --accent2-tint: rgba(30, 107, 78, 0.09);
+    --good: #5E7A48;
+    --warn: #9A7420;
+    --crit: #B0392E;
+    --shadow: 0 1px 2px rgba(42, 33, 28, 0.06), 0 8px 24px rgba(42, 33, 28, 0.05);
+  }
+
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  p { margin: 0 0 1em; max-width: 68ch; }
+  a { color: var(--accent-deep); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--sans);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h2 { font-size: 30px; margin-bottom: 10px; }
+  h3 { font-size: 20px; margin-bottom: 6px; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent2-deep);
+    margin-bottom: 12px;
+  }
+  section { margin-top: 76px; }
+  .lead { font-size: 19px; color: var(--ink-soft); }
+  .muted { color: var(--ink-soft); }
+  .small { font-size: 14px; }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    position: relative;
+    overflow: hidden;
+    padding: 44px 0 52px;
+    border-bottom: 1px solid var(--line);
+  }
+  .ring, .ring::after {
+    position: absolute;
+    border-radius: 50%;
+    border: 14px solid var(--accent);
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .ring {
+    width: 340px; height: 340px;
+    top: -130px; right: -80px;
+    filter: blur(1px);
+  }
+  .ring::after {
+    content: "";
+    inset: -30px;
+    border-width: 3px;
+    opacity: 0.8;
+  }
+  .cover h1 {
+    font-size: clamp(34px, 6vw, 54px);
+    font-weight: 800;
+    max-width: 15em;
+  }
+  .cover .dek {
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin-top: 18px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px 28px;
+    margin-top: 40px;
+    max-width: 780px;
+  }
+  .meta-grid dt {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--ink-soft);
+    margin-bottom: 3px;
+  }
+  .meta-grid dd { margin: 0; font-size: 16px; }
+  .fill {
+    background: var(--accent-tint);
+    border-bottom: 1px dotted var(--accent);
+    padding: 0 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Chips ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .chip {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--raised);
+    box-shadow: var(--shadow);
+  }
+  .chip::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 8px;
+    vertical-align: 1px;
+  }
+
+  /* ---------- Steps ---------- */
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 26px 0; display: grid; gap: 14px; }
+  .steps li {
+    counter-increment: step;
+    display: flex; gap: 16px; align-items: baseline;
+    max-width: 68ch;
+  }
+  .steps li::before {
+    content: counter(step);
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent2-deep);
+    border: 1.5px solid var(--accent2);
+    border-radius: 50%;
+    width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    position: relative; top: 4px;
+  }
+
+  /* ---------- Architecture diagram ---------- */
+  .arch {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin: 30px 0 18px;
+  }
+  .arch-group {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--raised);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow);
+  }
+  .arch-title {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .arch-node {
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--accent-tint);
+  }
+  .arch-node b { font-family: var(--sans); font-size: 15px; display: block; }
+  .arch-node span { font-size: 13.5px; color: var(--ink-soft); }
+  .arch-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .arch-chip {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 10px;
+    background: var(--bg);
+  }
+  .arch-down {
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .arch-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    gap: 6px;
+  }
+  .arch-link .wire {
+    flex: 1;
+    border-left: 2px dashed var(--accent);
+    opacity: 0.6;
+    min-height: 20px;
+  }
+  .arch-link .label {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-deep);
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .arch { grid-template-columns: 1fr; }
+    .arch-link { flex-direction: row; padding: 14px 0; }
+    .arch-link .wire { border-left: none; border-top: 2px dashed var(--accent); min-height: 0; min-width: 20px; }
+    .arch-link .label { writing-mode: horizontal-tb; }
+  }
+  .callout {
+    background: var(--accent-tint);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: var(--sans);
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--accent-deep);
+    max-width: none;
+  }
+
+  /* ---------- Module cards ---------- */
+  .modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 20px;
+    margin-top: 26px;
+  }
+  .module {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--raised);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+  }
+  .module .m-tag {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-deep);
+  }
+  .module p { font-size: 15px; color: var(--ink-soft); margin: 6px 0 12px; }
+  .module ul { list-style: none; padding: 0; margin: 0; }
+  .module li {
+    font-size: 15px;
+    padding: 5px 0 5px 18px;
+    position: relative;
+  }
+  .module li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 14px;
+    width: 8px; height: 2px;
+    background: var(--accent);
+  }
+  .legend {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+
+  /* ---------- Foundation cards ---------- */
+  .founds {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 26px;
+  }
+  .found {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 22px;
+    background: var(--raised);
+    box-shadow: var(--shadow);
+  }
+  .found p { font-size: 14.5px; color: var(--ink-soft); margin: 6px 0 0; }
+
+  /* ---------- Tables ---------- */
+  .table-scroll { overflow-x: auto; margin-top: 22px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    min-width: 540px;
+  }
+  th {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-soft);
+    text-align: left;
+    padding: 10px 14px 10px 0;
+    border-bottom: 1.5px solid var(--ink);
+  }
+  td {
+    padding: 11px 14px 11px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  td.num, th.num {
+    text-align: right;
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding-right: 0;
+  }
+  tr.total td {
+    font-family: var(--sans);
+    font-weight: 700;
+    border-bottom: none;
+    border-top: 2px solid var(--ink);
+  }
+  tr.total td.num { color: var(--accent2-deep); }
+  .yes { color: var(--good); font-weight: 700; font-family: var(--sans); }
+  .no { color: var(--ink-soft); opacity: 0.55; font-family: var(--sans); }
+  .cond { color: var(--warn); font-family: var(--sans); font-size: 13.5px; font-weight: 600; }
+  td.c, th.c { text-align: center; padding-right: 0; }
+
+  /* ---------- Timeline ---------- */
+  .gantt-scroll { overflow-x: auto; margin-top: 26px; }
+  .gantt { min-width: 620px; }
+  .g-weeks {
+    display: grid;
+    grid-template-columns: 150px repeat(11, 1fr);
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .g-weeks span { text-align: center; }
+  .g-row {
+    display: grid;
+    grid-template-columns: 150px repeat(11, 1fr);
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .g-label { font-family: var(--sans); font-size: 13.5px; font-weight: 600; padding-right: 12px; }
+  .g-track {
+    grid-column: 2 / span 11;
+    grid-row: 1;
+    height: 30px;
+    background: repeating-linear-gradient(to right, var(--line) 0 1px, transparent 1px calc(100% / 11));
+    border-radius: 4px;
+  }
+  .g-bar {
+    grid-row: 1;
+    height: 30px;
+    background: var(--accent2);
+    opacity: 0.85;
+    border-radius: 5px;
+    color: #FFF7EE;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .miles { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 8px; }
+  .miles li { font-size: 15px; padding-left: 20px; position: relative; }
+  .miles li::before {
+    content: "";
+    position: absolute; left: 2px; top: 9px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ---------- Receipt ---------- */
+  .invest-flex {
+    display: flex;
+    gap: 36px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .invest-main { flex: 1 1 420px; min-width: 0; }
+  .receipt {
+    flex: 0 1 330px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 20px;
+    margin-top: 22px;
+    box-shadow: var(--shadow);
+  }
+  .receipt .r-head {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .receipt .r-sub { text-align: center; color: var(--ink-soft); font-size: 12px; }
+  .receipt hr {
+    border: none;
+    border-top: 2px dashed var(--line);
+    margin: 12px 0;
+  }
+  .r-line { display: flex; align-items: baseline; gap: 8px; }
+  .r-line .dots { flex: 1; border-bottom: 2px dotted var(--line); }
+  .r-line.big { font-weight: 700; font-size: 14.5px; }
+  .r-line.big span:last-child { color: var(--accent2-deep); }
+  .r-note { color: var(--ink-soft); font-size: 11.5px; }
+  .r-foot { text-align: center; color: var(--accent-deep); font-weight: 700; letter-spacing: 0.08em; font-size: 12px; }
+
+  /* ---------- Note box ---------- */
+  .note-box {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--raised);
+    padding: 22px 26px;
+    margin-top: 26px;
+    box-shadow: var(--shadow);
+  }
+  .note-box h3 { font-size: 17px; }
+  .note-box p { font-size: 15px; color: var(--ink-soft); margin: 8px 0 0; max-width: none; }
+
+  /* ---------- Two-col lists ---------- */
+  .twocol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 22px;
+  }
+  .twocol ul { margin: 10px 0 0; padding-left: 20px; }
+  .twocol li { font-size: 15px; margin-bottom: 7px; }
+
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media print {
+    body { font-size: 13px; }
+    .page { max-width: 100%; padding: 0; }
+    section { margin-top: 40px; page-break-inside: auto; }
+    .module, .found, .note-box, .receipt, table, .arch-group { page-break-inside: avoid; }
+    .ring { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= COVER ================= -->
+  <header class="cover">
+    <div class="ring" aria-hidden="true"></div>
+    <div class="eyebrow">Project Proposal · Part 1 of 4</div>
+    <h1>A point-of-sale &amp; management system for XinChao</h1>
+    <p class="dek">Sales that never stop, stock that counts itself, and reports that follow you anywhere — running on a small server inside your shop that keeps working even when the internet doesn't.</p>
+    <dl class="meta-grid">
+      <div><dt>Prepared for</dt><dd>XinChao</dd></div>
+      <div><dt>Prepared by</dt><dd>Zack Bughaw</dd></div>
+      <div><dt>Date</dt><dd>August 8, 2026</dd></div>
+      <div><dt>Version</dt><dd>1.2 — valid 30 days</dd></div>
+    </dl>
+  </header>
+
+  <!-- ================= 1 AT A GLANCE ================= -->
+  <section>
+    <div class="eyebrow">01 · At a glance</div>
+    <h2>One system for the whole shop</h2>
+    <p>This proposal covers a custom-built system with four connected modules — <strong>point of sale, inventory, sales reports, and employee management</strong>. The POS runs on ordinary tablets and phones over the shop's own Wi-Fi, served by a small local computer behind the counter. Every order deducts ingredients from stock in real time using per-drink recipes, and everything syncs to a secure cloud server so you can check your numbers from anywhere.</p>
+    <p>Because the system lives <em>inside</em> the shop, an internet outage never stops a sale.</p>
+    <div class="chips">
+      <span class="chip">Works without internet</span>
+      <span class="chip">Recipe-level stock tracking</span>
+      <span class="chip">Reports on any device</span>
+      <span class="chip">One-time build — you own it</span>
+    </div>
+  </section>
+
+  <!-- ================= 2 HOW IT WORKS ================= -->
+  <section>
+    <div class="eyebrow">02 · How it works</div>
+    <h2>Local first, cloud always catching up</h2>
+    <ol class="steps">
+      <li>A barista rings up an order on any tablet or phone connected to the shop's Wi-Fi.</li>
+      <li>The local server checks stock, records the sale, deducts every ingredient by recipe, and prints the receipt — in under a second, internet or not.</li>
+      <li>Whenever the shop is online, sales and stock changes sync to the cloud automatically (or with a manual "Sync now"), where you see reports from anywhere.</li>
+    </ol>
+
+    <div class="arch">
+      <div class="arch-group">
+        <div class="arch-title">Inside the shop — works offline</div>
+        <div class="arch-chips">
+          <span class="arch-chip">POS tablet 1</span>
+          <span class="arch-chip">POS tablet 2</span>
+          <span class="arch-chip">Any phone / laptop</span>
+        </div>
+        <div class="arch-down">↓ &nbsp;shop Wi-Fi (no internet needed)</div>
+        <div class="arch-node">
+          <b>Raspberry Pi — local server</b>
+          <span>database · recipes · orders · printing</span>
+        </div>
+        <div class="arch-down">↓</div>
+        <div class="arch-chips">
+          <span class="arch-chip">Receipt printer</span>
+          <span class="arch-chip">Cash drawer</span>
+        </div>
+      </div>
+      <div class="arch-link" aria-label="Encrypted sync between shop and cloud">
+        <div class="wire"></div>
+        <div class="label">encrypted sync</div>
+        <div class="wire"></div>
+      </div>
+      <div class="arch-group">
+        <div class="arch-title">In the cloud</div>
+        <div class="arch-node">
+          <b>Cloud server</b>
+          <span>synced copy · nightly backups · remote admin</span>
+        </div>
+        <div class="arch-down">↑ &nbsp;from anywhere, over HTTPS</div>
+        <div class="arch-chips">
+          <span class="arch-chip">Owner — laptop / phone, anywhere</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">If the internet goes down, the shop keeps selling. Orders queue locally and sync the moment the connection returns.</div>
+  </section>
+
+  <footer>
+    <span>Prepared by Zack Bughaw · August 8, 2026</span>
+    <span>Part 1 of 4 · Proposal v1.2 · Figures in PHP · Valid for 30 days</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
