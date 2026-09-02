@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pending Items — XinChao</title>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --raised: #FFFFFF;
+    --ink: #2A211C;
+    --ink-soft: #6B5D53;
+    --line: #E6DFD6;
+    --accent: #B96A32;
+    --accent-deep: #96501F;
+    --accent-tint: rgba(185, 106, 50, 0.09);
+    --accent2: #1E6B4E;
+    --accent2-deep: #0F4430;
+    --accent2-tint: rgba(30, 107, 78, 0.09);
+    --good: #5E7A48;
+    --good-tint: rgba(94, 122, 72, 0.10);
+    --warn: #9A7420;
+    --warn-tint: rgba(154, 116, 32, 0.10);
+    --crit: #B0392E;
+    --crit-tint: rgba(176, 57, 46, 0.08);
+    --shadow: 0 1px 2px rgba(42, 33, 28, 0.06), 0 8px 24px rgba(42, 33, 28, 0.05);
+    --sans: "Avenir Next", Avenir, Futura, "Century Gothic", "Segoe UI", sans-serif;
+    --serif: Charter, "Bitstream Charter", "Iowan Old Style", Cambria, Georgia, serif;
+  }
+  :root[data-theme="light"] {
+    --bg: #FFFFFF; --raised: #FFFFFF; --ink: #2A211C; --ink-soft: #6B5D53;
+    --line: #E6DFD6; --accent: #B96A32; --accent-deep: #96501F;
+    --accent-tint: rgba(185, 106, 50, 0.09);
+    --accent2: #1E6B4E; --accent2-deep: #0F4430;
+    --accent2-tint: rgba(30, 107, 78, 0.09);
+    --good: #5E7A48; --good-tint: rgba(94, 122, 72, 0.10); --warn: #9A7420; --crit: #B0392E;
+    --shadow: 0 1px 2px rgba(42, 33, 28, 0.06), 0 8px 24px rgba(42, 33, 28, 0.05);
+  }
+
+  html { background: var(--bg); }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page { max-width: 880px; margin: 0 auto; padding: 48px 28px 80px; }
+  p { margin: 0 0 1em; max-width: 68ch; }
+  a { color: var(--accent-deep); }
+
+  h1, h2, h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+  h2 { font-size: 26px; margin-bottom: 6px; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent2-deep);
+    margin-bottom: 12px;
+  }
+  section { margin-top: 56px; }
+  .muted { color: var(--ink-soft); }
+  .small { font-size: 13.5px; }
+
+  /* ---------- Cover ---------- */
+  .cover { padding: 8px 0 40px; border-bottom: 1px solid var(--line); }
+  .cover h1 { font-size: clamp(28px, 4.6vw, 40px); font-weight: 800; max-width: 18em; }
+  .cover .dek { font-size: 18px; color: var(--ink-soft); max-width: 62ch; margin-top: 14px; }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px 28px;
+    margin-top: 30px;
+    max-width: 780px;
+  }
+  .meta-grid dt {
+    font-family: var(--sans); font-size: 11.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.09em; color: var(--ink-soft); margin-bottom: 3px;
+  }
+  .meta-grid dd { margin: 0; font-size: 16px; }
+
+  /* ---------- Status chips ---------- */
+  .status-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .status-chip {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--raised);
+    box-shadow: var(--shadow);
+  }
+  .status-chip::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent2);
+    margin-right: 8px;
+    vertical-align: 1px;
+  }
+
+  /* ---------- Legend ---------- */
+  .legend-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 22px; font-family: var(--sans); font-size: 13px; color: var(--ink-soft); }
+  .legend-row span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+
+  /* ---------- Pending items ---------- */
+  .pending-list { display: grid; gap: 12px; margin-top: 22px; }
+  .pending-item {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--ink-soft);
+    border-radius: 8px;
+    background: var(--raised);
+    box-shadow: var(--shadow);
+    padding: 15px 20px;
+  }
+  .pending-item.p-high { border-left-color: var(--crit); }
+  .pending-item.p-med  { border-left-color: var(--warn); }
+  .pending-item.p-low  { border-left-color: var(--accent2); }
+  .pending-item.p-done { border-left-color: var(--good); }
+  .p-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .p-title { font-family: var(--sans); font-weight: 700; font-size: 16px; }
+  .p-tag {
+    font-family: var(--sans); font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 3px 9px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .p-high .p-tag { color: var(--crit); background: var(--crit-tint); }
+  .p-med .p-tag  { color: var(--warn); background: var(--warn-tint); }
+  .p-low .p-tag  { color: var(--accent2-deep); background: var(--accent2-tint); }
+  .p-done .p-tag { color: var(--good); background: var(--good-tint); }
+  .pending-item p { font-size: 14.5px; color: var(--ink-soft); margin: 5px 0 0; max-width: none; }
+
+  /* ---------- Note box ---------- */
+  .note-box {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--raised);
+    padding: 18px 22px;
+    margin-top: 22px;
+    box-shadow: var(--shadow);
+  }
+  .note-box p { font-size: 14.5px; color: var(--ink-soft); margin: 0; max-width: none; }
+
+  footer {
+    margin-top: 64px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media print {
+    body { font-size: 13px; }
+    .page { max-width: 100%; padding: 0; }
+    section { margin-top: 32px; page-break-inside: auto; }
+    .pending-item, .note-box { page-break-inside: avoid; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= COVER ================= -->
+  <header class="cover">
+    <div class="eyebrow">Project Status</div>
+    <h1>Pending items — Xin Chao Coffee Shop System</h1>
+    <p class="dek">The four core modules (POS, Inventory, Reports, Employees) are built, deployed, and running live. This tracks what's genuinely still open — production-readiness loose ends, in-progress multi-branch work, and smaller known gaps — verified against the actual code and infrastructure, not just planning notes.</p>
+    <dl class="meta-grid">
+      <div><dt>Prepared by</dt><dd>Zack Bughaw</dd></div>
+      <div><dt>Date</dt><dd>September 1, 2026</dd></div>
+      <div><dt>Status</dt><dd>Live in production — closing loose ends</dd></div>
+    </dl>
+    <div class="status-row">
+      <span class="status-chip">37 specs shipped</span>
+      <span class="status-chip">4/4 core modules live</span>
+      <span class="status-chip">Deployed to Pi + VPS</span>
+    </div>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background: var(--crit);"></span>Before go-live</span>
+      <span><span class="legend-dot" style="background: var(--warn);"></span>In progress</span>
+      <span><span class="legend-dot" style="background: var(--accent2);"></span>Smaller / later</span>
+    </div>
+  </header>
+
+  <!-- ================= RECENTLY CLOSED ================= -->
+  <section>
+    <div class="eyebrow">Since August 29</div>
+    <h2>Recently closed</h2>
+    <p class="muted small">Eight items from the previous version of this list are now built, verified against real data, and live on both the shop's local system and the cloud server.</p>
+    <div class="pending-list">
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Branch data boundary</span><span class="p-tag">Closed</span></div>
+        <p>Branch restriction on Orders, shifts, and stock is now enforced by the server itself, not just hidden in the screen — one branch's admin can no longer pull another branch's data with a direct API call.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">CSV export</span><span class="p-tag">Closed</span></div>
+        <p>Reports can now be exported straight to a spreadsheet-ready CSV file.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Custom date range</span><span class="p-tag">Closed</span></div>
+        <p>Reports now accepts any custom "from / to" range, alongside the existing Today/week/month/year presets.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Charts on Reports</span><span class="p-tag">Closed</span></div>
+        <p>A real sales chart now sits alongside the summary tiles and tables.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Receiving workflow</span><span class="p-tag">Closed</span></div>
+        <p>A new "Receiving" screen logs deliveries against suppliers and updates stock automatically, replacing manual one-off adjustments for incoming stock.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Real shrinkage detection</span><span class="p-tag">Closed</span></div>
+        <p>A new "Stocktake" screen takes an actual physical count and reconciles it against the system's numbers — the absolute-count input this needed is now in place.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Low-stock dashboard view</span><span class="p-tag">Closed</span></div>
+        <p>Inventory now has a dedicated "Low stock" filter, on top of the existing inline alerts.</p>
+      </div>
+
+      <div class="pending-item p-done">
+        <div class="p-head"><span class="p-title">Docs: printer setting name</span><span class="p-tag">Closed</span></div>
+        <p>Internal setup documentation now correctly refers to <code>PRINTER_TRANSPORT</code> throughout.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= BEFORE GO-LIVE ================= -->
+  <section>
+    <div class="eyebrow">Before go-live</div>
+    <h2>Production-readiness loose ends</h2>
+    <p class="muted small">Everything here is a known, deliberate "not yet" — not a bug. Each one was flagged explicitly when its feature was built, as a next step rather than an oversight.</p>
+    <div class="pending-list">
+
+      <div class="pending-item p-high">
+        <div class="p-head"><span class="p-title">VPS domain &amp; TLS</span><span class="p-tag">High</span></div>
+        <p>The VPS is still reachable only over a raw IP on plain HTTP — no domain, no certificate. Deliberately deferred to prove the deployment and sync worked first. Needs a real domain pointed at Caddy before real business/customer data should keep going over this in production.</p>
+      </div>
+
+      <div class="pending-item p-high">
+        <div class="p-head"><span class="p-title">Real off-site backups</span><span class="p-tag">High</span></div>
+        <p>Litestream's replicate/restore mechanism is built and verified — but only against a local-file stand-in. It isn't pointed at a real S3/B2 bucket yet, so nightly backups aren't actually leaving the box.</p>
+      </div>
+
+      <div class="pending-item p-high">
+        <div class="p-head"><span class="p-title">SSD swap on the Pi</span><span class="p-tag">High</span></div>
+        <p>Still running on the original SD card. The setup runbook calls for swapping to a proper SSD before sustained production write load — cheap to do, easy to forget once the system is up and working.</p>
+      </div>
+
+      <div class="pending-item p-med">
+        <div class="p-head"><span class="p-title">BIR receipt wording</span><span class="p-tag">Medium</span></div>
+        <p>Official receipt vs. sales invoice wording still needs the client's accountant to confirm. It's a text/settings change on the receipt template, not code — just needs an answer.</p>
+      </div>
+
+      <div class="pending-item p-med">
+        <div class="p-head"><span class="p-title">New-Pi setup script — untested on real hardware</span><span class="p-tag">Medium</span></div>
+        <p>Setting up a fresh Pi (hardening, the local server, the sync service) is now scripted end to end instead of run by hand step by step. It's carefully written against the same steps already proven on the current hardware, but hasn't been run start-to-finish on a real board yet — worth a supervised first run before it's relied on for the next branch's setup day.</p>
+      </div>
+
+      <div class="pending-item p-low">
+        <div class="p-head"><span class="p-title">DigitalOcean Cloud Firewall</span><span class="p-tag">Low</span></div>
+        <p>Only the server's own <code>ufw</code> is active right now. Adding DO's separate Cloud Firewall would be a second layer of defense at effectively no cost.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MULTI-BRANCH ================= -->
+  <section>
+    <div class="eyebrow">Multi-branch</div>
+    <h2>In progress</h2>
+    <p class="muted small">Each location's system now carries its own fixed branch identity, set once at setup rather than per device, with sign-in and reporting locked to it accordingly. What's left mostly needs a second real Pi to finish confirming.</p>
+    <div class="pending-list">
+
+      <div class="pending-item p-med">
+        <div class="p-head"><span class="p-title">Second Pi — provisioning &amp; real multi-site sync</span><span class="p-tag">In progress</span></div>
+        <p>A second physical Pi has been ordered. Two real Pis pushing to the same VPS at once has only ever been tested with local stand-ins standing in for each site — never two real boxes syncing simultaneously. That's the one genuinely unconfirmed piece of the multi-branch work.</p>
+      </div>
+
+      <div class="pending-item p-med">
+        <div class="p-head"><span class="p-title">Branch-routing safeguard — real-world confirmation</span><span class="p-tag">Verify</span></div>
+        <p>A safeguard now keeps each location's device talking only to its own local system for real sales, not the shared cloud server directly. The design is deployed and live, but the exact scenario it's meant to prevent hasn't been re-tested end to end on real hardware yet — worth doing before a second branch is trusted to rely on it.</p>
+      </div>
+
+      <div class="pending-item p-low">
+        <div class="p-head"><span class="p-title">Device provisioning UI</span><span class="p-tag">Low</span></div>
+        <p>A new script now sets up a fresh Pi's branch identity and first admin login in one step, replacing hand-typed setup commands — but it's still a script run from a terminal, not a screen inside the app. Worth a real admin screen once a second branch makes this a recurring task instead of a one-time setup step.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SMALLER ITEMS ================= -->
+  <section>
+    <div class="eyebrow">Smaller items</div>
+    <h2>Known gaps, lower priority</h2>
+    <div class="pending-list">
+
+      <div class="pending-item p-low">
+        <div class="p-head"><span class="p-title">Tablet kiosk-lock</span><span class="p-tag">Low</span></div>
+        <p>Staff can currently back out to the home screen or browser mid-shift. Two real options are written up (a quick Settings toggle that needs re-doing after every reboot, or a more durable one-time setup that survives reboots) — neither has actually been turned on on a real tablet yet.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FUTURE PHASE ================= -->
+  <section>
+    <div class="eyebrow">Future phase</div>
+    <h2>Not in this phase</h2>
+    <p class="muted small">Add-ons, priced and delivered separately from the base system — not part of what's covered above.</p>
+    <div class="pending-list">
+      <div class="pending-item p-low">
+        <div class="p-head"><span class="p-title">Receipt printing (ESC/POS)</span><span class="p-tag">Future</span></div>
+        <p>Built and working — byte-for-byte verified against a simulated printer — but repositioned as a priced add-on rather than base scope, the same track as QR ordering below. Still needs one real hardware test pass (USB transport specifically has none yet) whenever it's actually turned on for a shop.</p>
+      </div>
+      <div class="pending-item p-low">
+        <div class="p-head"><span class="p-title">QR-code table ordering</span><span class="p-tag">Future</span></div>
+        <p>Customer scans a table code, orders from their phone, and it queues on the cashier's screen. Confirmed architecturally feasible on the current stack — not yet scoped or costed.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="note-box">
+    <p><strong>How this list stays honest:</strong> every item above was checked against the actual deployed code, config, and infrastructure — not just recalled from planning notes. If something here looks done, it's worth double-checking directly rather than trusting this page indefinitely; it reflects a point in time.</p>
+  </div>
+
+  <footer>
+    <span>Prepared by Zack Bughaw · September 1, 2026</span>
+    <span>Internal status · Not for public distribution</span>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -559,7 +559,7 @@
     <h2>Local first, cloud always catching up</h2>
     <ol class="steps">
       <li>A barista rings up an order on any tablet or phone connected to the shop's Wi-Fi.</li>
-      <li>The local server checks stock, records the sale, deducts every ingredient by recipe, and prints the receipt — in under a second, internet or not.</li>
+      <li>The local server checks stock, records the sale, and deducts every ingredient by recipe — in under a second, internet or not.</li>
       <li>Whenever the shop is online, sales and stock changes sync to the cloud automatically (or with a manual "Sync now"), where you see reports from anywhere.</li>
     </ol>
 
@@ -574,12 +574,7 @@
         <div class="arch-down">↓ &nbsp;shop Wi-Fi (no internet needed)</div>
         <div class="arch-node">
           <b>Raspberry Pi — local server</b>
-          <span>database · recipes · orders · printing</span>
-        </div>
-        <div class="arch-down">↓</div>
-        <div class="arch-chips">
-          <span class="arch-chip">Receipt printer</span>
-          <span class="arch-chip">Cash drawer</span>
+          <span>database · recipes · orders</span>
         </div>
       </div>
       <div class="arch-link" aria-label="Encrypted sync between shop and cloud">
@@ -619,7 +614,6 @@
           <li>Dine-in / take-out tags</li>
           <li>Discounts with permission control</li>
           <li>Cash &amp; e-wallet payment recording</li>
-          <li>Receipt printing &amp; reprint</li>
           <li>Void / refund with Owner PIN + reason</li>
           <li>End-of-day cash count &amp; shift close</li>
         </ul>
@@ -638,7 +632,7 @@
           <li>Delivery receiving &amp; supplier log</li>
           <li>Wastage &amp; spillage tracking</li>
           <li>Expiry dates for perishables</li>
-          <li>Monthly stock-take with variance report</li>
+          <li>Stock-take with variance report, run anytime</li>
         </ul>
       </div>
 
@@ -647,7 +641,8 @@
         <h3>Reports &amp; Dashboard</h3>
         <p>From "how was today?" to "what should we stop selling?"</p>
         <ul>
-          <li>Daily, weekly, monthly &amp; yearly sales</li>
+          <li>Daily, weekly, monthly &amp; yearly sales, or any custom date range</li>
+          <li>Visual sales trend chart, not just tables</li>
           <li>Best sellers &amp; slow movers</li>
           <li>Sales by hour — find your rush</li>
           <li>Sales by staff member</li>
@@ -716,7 +711,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Take orders &amp; print receipts</td><td class="c yes">✓</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+          <tr><td>Take orders</td><td class="c yes">✓</td><td class="c no">—</td><td class="c yes">✓</td></tr>
           <tr><td>Void / refund orders</td><td class="c yes">✓</td><td class="c no">—</td><td class="c cond">with Owner PIN</td></tr>
           <tr><td>Manage menu, prices &amp; recipes</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c no">—</td></tr>
           <tr><td>Receive stock, adjust, stock-take</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c no">—</td></tr>
@@ -760,11 +755,6 @@
             <td>Sync engine</td>
             <td>Queue-based sync service</td>
             <td>Pushes sales and stock movements up; pulls menu, price, and staff changes down. Automatic every few minutes, plus a manual "Sync now" button.</td>
-          </tr>
-          <tr>
-            <td>Receipts</td>
-            <td>ESC/POS thermal printing</td>
-            <td>Works with standard 80 mm receipt printers; cash-drawer kick included.</td>
           </tr>
           <tr>
             <td>Backups</td>
@@ -855,12 +845,10 @@
             <tbody>
               <tr><td>Raspberry Pi 4, 4 GB — already owned, no purchase needed</td><td class="num">0</td></tr>
               <tr><td>256 GB SSD boot drive (more reliable than SD cards)</td><td class="num">2,500</td></tr>
-              <tr><td>80 mm thermal receipt printer (LAN/USB)</td><td class="num">4,000</td></tr>
-              <tr><td>Cash drawer (printer-triggered)</td><td class="num">2,000</td></tr>
               <tr><td>2 × 10" Android tablets for POS</td><td class="num">16,000</td></tr>
               <tr><td>Mini-UPS for Pi &amp; router (rides out brownouts)</td><td class="num">2,500</td></tr>
               <tr><td>Dedicated Wi-Fi router for the shop network</td><td class="num">2,000</td></tr>
-              <tr class="total"><td>Estimated hardware total</td><td class="num">≈ 29,000</td></tr>
+              <tr class="total"><td>Estimated hardware total</td><td class="num">≈ 23,000</td></tr>
             </tbody>
           </table>
         </div>
@@ -888,9 +876,9 @@
         <div class="r-sub">PROJECT ORDER #001 · AUG 2026</div>
         <hr>
         <div class="r-line"><span>DEVELOPMENT</span><span class="dots"></span><span>320,000.00</span></div>
-        <div class="r-line"><span>HARDWARE (EST.)</span><span class="dots"></span><span>29,000.00</span></div>
+        <div class="r-line"><span>HARDWARE (EST.)</span><span class="dots"></span><span>23,000.00</span></div>
         <hr>
-        <div class="r-line big"><span>PROJECT TOTAL</span><span class="dots"></span><span>PHP 349,000</span></div>
+        <div class="r-line big"><span>PROJECT TOTAL</span><span class="dots"></span><span>PHP 343,000</span></div>
         <hr>
         <div class="r-line"><span>DEPOSIT — 30%</span><span class="dots"></span><span>96,000.00</span></div>
         <div class="r-line"><span>WEEK-6 DEMO — 40%</span><span class="dots"></span><span>128,000.00</span></div>
