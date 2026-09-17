@@ -245,6 +245,82 @@
     margin-top: 8px;
   }
 
+  /* ---------- Architecture / relationship diagram ---------- */
+  .arch {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin: 30px 0 18px;
+  }
+  .arch-group {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--raised);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--shadow);
+  }
+  .arch-title {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .arch-node {
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: var(--accent-tint);
+  }
+  .arch-node b { font-family: var(--sans); font-size: 15px; display: block; }
+  .arch-node span { font-size: 13.5px; color: var(--ink-soft); }
+  .arch-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .arch-chip {
+    font-family: var(--sans);
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 10px;
+    background: var(--bg);
+  }
+  .arch-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    gap: 6px;
+  }
+  .arch-link .wire {
+    flex: 1;
+    border-left: 2px dashed var(--accent);
+    opacity: 0.6;
+    min-height: 20px;
+  }
+  .arch-link .label {
+    font-family: var(--sans);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-deep);
+    writing-mode: vertical-rl;
+    white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .arch { grid-template-columns: 1fr; }
+    .arch-link { flex-direction: row; padding: 14px 0; }
+    .arch-link .wire { border-left: none; border-top: 2px dashed var(--accent); min-height: 0; min-width: 20px; }
+    .arch-link .label { writing-mode: horizontal-tb; }
+  }
+  .chart-figure { margin-top: 18px; }
+
   /* ---------- Tables ---------- */
   .table-scroll { overflow-x: auto; margin-top: 22px; }
   table {
@@ -369,7 +445,7 @@
     body { font-size: 13px; }
     .page { max-width: 100%; padding: 0; }
     section { margin-top: 40px; page-break-inside: auto; }
-    .module, .note-box, .receipt, table { page-break-inside: avoid; }
+    .module, .note-box, .receipt, table, .arch-group, .chart-figure { page-break-inside: avoid; }
     .ring { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -408,32 +484,9 @@
     </div>
   </section>
 
-  <!-- ================= 02 COMPARISON ================= -->
+  <!-- ================= 02 WHAT'S INCLUDED ================= -->
   <section>
-    <div class="eyebrow">02 · Two ways to work with us</div>
-    <h2>Custom build vs. branded partner</h2>
-    <p>Both use the exact same underlying system. The difference is ownership, upfront cost, and how fast you can open.</p>
-    <div class="table-scroll">
-      <table>
-        <thead>
-          <tr><th style="width: 30%;">&nbsp;</th><th>Custom build</th><th>Branded partner</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Source code</td><td>You own it outright</td><td class="hl">Licensed — platform stays with us</td></tr>
-          <tr><td>Upfront cost</td><td>₱343,000</td><td class="hl">₱87,500 <span class="muted small">(setup + hardware)</span></td></tr>
-          <tr><td>Monthly cost</td><td>~₱650 <span class="muted small">(your own VPS, domain, backups)</span></td><td class="hl">₱3,500 <span class="muted small">(hosting, backups, updates &amp; support included)</span></td></tr>
-          <tr><td>Time to launch</td><td>~11 weeks</td><td class="hl">~2–3 weeks</td></tr>
-          <tr><td>New features &amp; improvements</td><td>Quoted &amp; built separately</td><td class="hl">Included automatically, for every partner</td></tr>
-          <tr><td>Best for</td><td>Shops wanting full independence and ownership</td><td class="hl">Shops wanting to launch fast at low upfront cost</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="legend">Not sure which fits? A branded partnership can always convert into a full custom-owned build later — see Ownership &amp; terms below.</p>
-  </section>
-
-  <!-- ================= 03 WHAT'S INCLUDED ================= -->
-  <section>
-    <div class="eyebrow">03 · What's included</div>
+    <div class="eyebrow">02 · What's included</div>
     <h2>Every module, no feature cut</h2>
     <p>Nothing is held back for branded partners — you get the complete platform, the same one running a real shop today.</p>
     <div class="modules">
@@ -456,9 +509,9 @@
     </div>
   </section>
 
-  <!-- ================= 04 SETUP ================= -->
+  <!-- ================= 03 SETUP ================= -->
   <section>
-    <div class="eyebrow">04 · Setup</div>
+    <div class="eyebrow">03 · Setup</div>
     <h2>One-time, to get your branded shop live</h2>
     <div class="invest-flex">
       <div class="invest-main">
@@ -470,14 +523,14 @@
             <tbody>
               <tr><td>Discovery — your menu, recipes &amp; staff</td><td class="num">18,000</td></tr>
               <tr><td>Branding &amp; theme customization — logo, colors, shop name</td><td class="num">17,000</td></tr>
-              <tr><td>Hardware provisioning &amp; on-site setup</td><td class="num">15,000</td></tr>
+              <tr><td>On-site setup, network &amp; device configuration</td><td class="num">35,500</td></tr>
               <tr><td>Staff training &amp; go-live support</td><td class="num">10,000</td></tr>
-              <tr class="total"><td>Total setup</td><td class="num">60,000</td></tr>
+              <tr class="total"><td>Total setup</td><td class="num">80,500</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3 style="margin-top: 34px;">Hardware <span class="muted" style="font-weight: 400; font-size: 14px;">(you purchase directly, est. prices)</span></h3>
+        <h3 style="margin-top: 34px;">Core server hardware <span class="muted" style="font-weight: 400; font-size: 14px;">(we procure it for you, funded by your downpayment)</span></h3>
         <div class="table-scroll">
           <table>
             <thead>
@@ -486,33 +539,39 @@
             <tbody>
               <tr><td>Raspberry Pi 4, 4 GB (local server)</td><td class="num">4,500</td></tr>
               <tr><td>256 GB SSD boot drive</td><td class="num">2,500</td></tr>
-              <tr><td>2 × 10" Android tablets for POS</td><td class="num">16,000</td></tr>
-              <tr><td>Mini-UPS for Pi &amp; router (rides out brownouts)</td><td class="num">2,500</td></tr>
-              <tr><td>Dedicated Wi-Fi router for the shop network</td><td class="num">2,000</td></tr>
-              <tr class="total"><td>Estimated hardware total</td><td class="num">≈ 27,500</td></tr>
+              <tr class="total"><td>Estimated hardware total</td><td class="num">≈ 7,000</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="legend">You provide your own Android tablets (2 × 10" recommended), Wi-Fi router, and mini-UPS for brownout protection — use what you already have, or choose your own specs. Setup and configuration are covered under on-site setup, above.</p>
       </div>
 
       <div class="receipt" role="img" aria-label="Setup cost summary styled as a shop receipt">
         <div class="r-head">BRANDED PARTNER</div>
         <div class="r-sub">SETUP SUMMARY</div>
         <hr>
-        <div class="r-line"><span>SETUP FEE</span><span class="dots"></span><span>60,000.00</span></div>
-        <div class="r-line"><span>HARDWARE (EST.)</span><span class="dots"></span><span>27,500.00</span></div>
+        <div class="r-line"><span>SETUP FEE</span><span class="dots"></span><span>80,500.00</span></div>
+        <div class="r-line"><span>HARDWARE (EST.)</span><span class="dots"></span><span>7,000.00</span></div>
         <hr>
-        <div class="r-line big"><span>DUE AT SIGNING</span><span class="dots"></span><span>PHP 87,500</span></div>
-        <div class="r-note">Then billed monthly for platform, hosting &amp; support — see below.</div>
+        <div class="r-line"><span>TOTAL SETUP COST</span><span class="dots"></span><span>87,500.00</span></div>
+        <hr>
+        <div class="r-line big"><span>DOWNPAYMENT — AT SIGNING</span><span class="dots"></span><span>PHP 30,000</span></div>
+        <div class="r-line"><span>BALANCE — BEFORE GO-LIVE</span><span class="dots"></span><span>57,500.00</span></div>
+        <div class="r-note">Downpayment covers hardware and kicks off on-site setup. Then billed monthly for platform, hosting &amp; support — see below.</div>
         <hr>
         <div class="r-foot">*** THANK YOU — LET'S BREW ***</div>
       </div>
     </div>
+
+    <div class="note-box" style="margin-top: 26px;">
+      <h3>Payment schedule</h3>
+      <p>A ₱30,000 downpayment is due at signing — this covers hardware procurement (the Pi and SSD, sourced and provisioned for you) and gets on-site setup underway. The remaining ₱57,500 balance is due before go-live, once setup and training are complete.</p>
+    </div>
   </section>
 
-  <!-- ================= 05 MONTHLY ================= -->
+  <!-- ================= 04 MONTHLY ================= -->
   <section>
-    <div class="eyebrow">05 · Monthly</div>
+    <div class="eyebrow">04 · Monthly</div>
     <h2>One simple fee, everything included</h2>
     <div class="table-scroll">
       <table>
@@ -527,6 +586,134 @@
       </table>
     </div>
     <p style="margin-top: 20px;">No per-transaction fees, no per-sale commission. The monthly fee is flat regardless of how much you sell.</p>
+  </section>
+
+  <!-- ================= 05 GROWING TO MORE BRANCHES ================= -->
+  <section>
+    <div class="eyebrow">05 · Growing to more branches</div>
+    <h2>Your second location starts from a head start, not from zero</h2>
+    <p>Discovery and branding are shop-wide work, done once — your menu, recipes, pricing, and visual identity already exist and simply extend to a new location. What a second branch actually needs is its own physical hardware, its own on-site setup, and training for a new set of staff who've never used the system before.</p>
+
+    <div class="invest-flex">
+      <div class="invest-main">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Work package</th><th class="num">First branch</th><th class="num">Each additional branch</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Discovery — your menu, recipes &amp; staff</td><td class="num">18,000</td><td class="num"><s class="muted small">18,000</s> <span class="yes">Included</span></td></tr>
+              <tr><td>Branding &amp; theme customization</td><td class="num">17,000</td><td class="num"><s class="muted small">17,000</s> <span class="yes">Included</span></td></tr>
+              <tr><td>On-site setup, network &amp; device configuration</td><td class="num">35,500</td><td class="num">35,500</td></tr>
+              <tr><td>Staff training &amp; go-live support</td><td class="num">10,000</td><td class="num">10,000</td></tr>
+              <tr class="total"><td>Total setup</td><td class="num">80,500</td><td class="num">45,500</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 34px;">Core server hardware <span class="muted" style="font-weight: 400; font-size: 14px;">(same kit as your first branch — full repeat, it's genuinely new physical equipment)</span></h3>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Item</th><th class="num">Est. (PHP)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Raspberry Pi 4, 4 GB (local server)</td><td class="num">4,500</td></tr>
+              <tr><td>256 GB SSD boot drive</td><td class="num">2,500</td></tr>
+              <tr class="total"><td>Estimated hardware total</td><td class="num">≈ 7,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="legend">You provide your own Android tablets (2 × 10" recommended), Wi-Fi router, and mini-UPS for brownout protection — use what you already have, or choose your own specs. Setup and configuration are covered under on-site setup, above.</p>
+      </div>
+
+      <div class="receipt" role="img" aria-label="Additional branch setup cost summary styled as a shop receipt">
+        <div class="r-head">ADDITIONAL BRANCH</div>
+        <div class="r-sub">SETUP SUMMARY</div>
+        <hr>
+        <div class="r-line"><span>SETUP FEE</span><span class="dots"></span><span>45,500.00</span></div>
+        <div class="r-line"><span>HARDWARE (EST.)</span><span class="dots"></span><span>7,000.00</span></div>
+        <hr>
+        <div class="r-line"><span>TOTAL SETUP COST</span><span class="dots"></span><span>52,500.00</span></div>
+        <hr>
+        <div class="r-line big"><span>DOWNPAYMENT — AT SIGNING</span><span class="dots"></span><span>PHP 30,000</span></div>
+        <div class="r-line"><span>BALANCE — BEFORE GO-LIVE</span><span class="dots"></span><span>22,500.00</span></div>
+        <div class="r-note">₱35,000 less than a first branch — Discovery &amp; Branding are already built.</div>
+        <hr>
+        <div class="r-foot">*** THANK YOU — LET'S BREW ***</div>
+      </div>
+    </div>
+
+    <p class="legend">Same ₱30,000 downpayment structure as your first branch — see Payment schedule under Setup, above.</p>
+    <div class="callout" style="margin-top: 26px;">Every additional branch costs ₱35,000 less than the first — about 40% lower — because Discovery and Branding are shop-wide work, not repeated per location.</div>
+
+    <div class="arch" style="margin-top: 34px;">
+      <div class="arch-group">
+        <div class="arch-title">Built once — shared by every branch</div>
+        <div class="arch-node">
+          <b>Menu, recipes &amp; branding</b>
+          <span>Discovery, theme, logo and colors — done once, during your first branch's setup</span>
+        </div>
+        <div class="arch-chips">
+          <span class="arch-chip">Discovery</span>
+          <span class="arch-chip">Branding &amp; theme</span>
+        </div>
+      </div>
+      <div class="arch-link" aria-label="Inherited by every additional branch at no extra cost">
+        <div class="wire"></div>
+        <div class="label">Inherited, free</div>
+        <div class="wire"></div>
+      </div>
+      <div class="arch-group">
+        <div class="arch-title">New for every branch</div>
+        <div class="arch-node">
+          <b>Hardware, on-site setup &amp; training</b>
+          <span>Its own physical kit, its own visit, its own staff who've never used the system</span>
+        </div>
+        <div class="arch-chips">
+          <span class="arch-chip">Hardware</span>
+          <span class="arch-chip">On-site setup</span>
+          <span class="arch-chip">Staff training</span>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">Cost, branch by branch</h3>
+    <p class="small muted">Due at signing for that branch — not a running total.</p>
+    <div class="chart-figure">
+      <svg viewBox="0 0 720 280" role="img" aria-label="Bar chart of cost due at signing per branch: branch 1 is 87,500 pesos; branch 2, branch 3 and branch 4 are each an additional 52,500 pesos" style="width:100%; height:auto; max-width:640px; display:block; margin:18px auto 0;">
+        <line x1="30" y1="220" x2="690" y2="220" stroke="var(--line)" stroke-width="1"/>
+        <path d="M 108,220 L 108,58 Q 108,54 112,54 L 128,54 Q 132,54 132,58 L 132,220 Z" fill="var(--accent2)"/>
+        <path d="M 268,220 L 268,124 Q 268,120 272,120 L 288,120 Q 292,120 292,124 L 292,220 Z" fill="var(--accent2)"/>
+        <path d="M 428,220 L 428,124 Q 428,120 432,120 L 448,120 Q 452,120 452,124 L 452,220 Z" fill="var(--accent2)"/>
+        <path d="M 588,220 L 588,124 Q 588,120 592,120 L 608,120 Q 612,120 612,124 L 612,220 Z" fill="var(--accent2)"/>
+        <text x="120" y="42" text-anchor="middle" style="font-family:var(--sans); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; fill:var(--ink);">₱87,500</text>
+        <text x="280" y="108" text-anchor="middle" style="font-family:var(--sans); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; fill:var(--ink);">+₱52,500</text>
+        <text x="440" y="108" text-anchor="middle" style="font-family:var(--sans); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; fill:var(--ink);">+₱52,500</text>
+        <text x="600" y="108" text-anchor="middle" style="font-family:var(--sans); font-size:15px; font-weight:700; font-variant-numeric:tabular-nums; fill:var(--ink);">+₱52,500</text>
+        <text x="120" y="242" text-anchor="middle" style="font-family:var(--sans); font-size:12.5px; fill:var(--ink-soft);">Branch 1</text>
+        <text x="280" y="242" text-anchor="middle" style="font-family:var(--sans); font-size:12.5px; fill:var(--ink-soft);">Branch 2</text>
+        <text x="440" y="242" text-anchor="middle" style="font-family:var(--sans); font-size:12.5px; fill:var(--ink-soft);">Branch 3</text>
+        <text x="600" y="242" text-anchor="middle" style="font-family:var(--sans); font-size:12.5px; fill:var(--ink-soft);">Branch 4</text>
+      </svg>
+    </div>
+    <p class="legend">Branch 1 includes Discovery &amp; Branding. Every branch after that is a flat ₱52,500 — the same amount, however many you add.</p>
+
+    <h3 style="margin-top: 40px;">Running total, if you expand to multiple branches</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Branches</th><th class="num">Due at signing (cumulative)</th><th class="num">Platform &amp; hosting / mo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 <span class="muted small">(first branch)</span></td><td class="num">87,500</td><td class="num">3,500</td></tr>
+          <tr><td>2</td><td class="num">140,000</td><td class="num">5,000</td></tr>
+          <tr><td>3</td><td class="num">192,500</td><td class="num">6,500</td></tr>
+          <tr><td>4</td><td class="num">245,000</td><td class="num">8,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="legend">Monthly platform &amp; hosting adds +₱1,500 for each additional branch. Priority Care and other add-ons are quoted and purchased separately — see Monthly, above.</p>
   </section>
 
   <!-- ================= 06 OWNERSHIP & TERMS ================= -->
