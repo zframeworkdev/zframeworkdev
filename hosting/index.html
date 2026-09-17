@@ -339,6 +339,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#own-apps">Own Apps</a></li>
+    <li><a href="#ventures">Ventures</a></li>
     <li><a href="#client-work">Client Work</a></li>
     <li><a href="#achievements">Achievements</a></li>
     <li><a href="#education">Education</a></li>
@@ -693,6 +694,81 @@
           <span class="own-tag">StoreKit 2</span>
           <span class="own-tag">Google Sign-In</span>
           <span class="own-tag">AuthenticationServices</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Ventures -->
+<section id="ventures">
+  <div class="wrap">
+    <div class="s-label">Founder Projects</div>
+    <div class="s-title">Startups &amp; <span>Ventures</span></div>
+    <div class="own-grid">
+
+      <div class="own-card">
+        <div class="own-card-head">
+          <div class="own-app-icon">📱</div>
+          <div class="own-app-meta">
+            <div class="own-app-name">JustInCase</div>
+            <div class="own-app-sub">Phones &amp; Accessories on Installment · Founder / Full-Stack Project</div>
+            <a href="https://justincase-site.web.app" target="_blank" class="own-store-link">↗ Visit site</a>
+          </div>
+        </div>
+        <p class="own-desc">
+          Founded and built a phones-and-accessories retail business for the Philippine market, offering flexible installment financing instead of pay-in-full pricing. Designed and shipped every layer solo — customer app, admin operations tooling, Firebase backend, and marketing site — currently in final testing ahead of its App Store and Google Play launch.
+        </p>
+        <ul class="own-highlights">
+          <li>Customer app in Flutter (iOS + Android) — browse iPhones, Android phones and accessories, get an instant down-payment/monthly estimate, and apply for a plan in-app</li>
+          <li>Appointment-based verification flow: ID upload, proof of income, references, and a map-pinned address, scheduled before a plan is approved</li>
+          <li>Installment lifecycle tracked end-to-end — pending → approved → active → completed/overdue — with admin-side payment logging and void/correction handling for entry mistakes</li>
+          <li>In-app messaging between customers and support, backed by Cloud Functions that push notifications on new appointments, status changes, and new messages</li>
+          <li>Admin web dashboard (React + TypeScript + Tailwind) for inventory, appointments, installment accounts, and reporting</li>
+          <li>Phone-number OTP authentication tuned for returning customers</li>
+        </ul>
+        <div class="own-tech">
+          <span class="own-tag">Flutter</span>
+          <span class="own-tag">Riverpod</span>
+          <span class="own-tag">Firebase</span>
+          <span class="own-tag">Cloud Functions</span>
+          <span class="own-tag">React</span>
+          <span class="own-tag">TypeScript</span>
+          <span class="own-tag">Tailwind</span>
+        </div>
+      </div>
+
+      <div class="own-card">
+        <div class="own-card-head">
+          <div class="own-app-icon">🏍</div>
+          <div class="own-app-meta">
+            <div class="own-app-name">Vreyo</div>
+            <div class="own-app-sub">Ride &amp; Delivery Platform (Philippines) · Founder / Full-Stack Project</div>
+            <a href="https://vreyo2026.web.app" target="_blank" class="own-store-link">↗ Visit site</a>
+          </div>
+        </div>
+        <p class="own-desc">
+          Building a ride and delivery platform for the Philippines from the ground up — motorcycle rides today, car rides and food/package delivery on the roadmap. Beyond the code, personally running the business side: SEC incorporation, BIR registration, and an LTFRB motorcycle-taxi permit application, alongside an investor pitch deck.
+        </p>
+        <ul class="own-highlights">
+          <li>Two Flutter apps sharing one Firebase backend — a passenger app for booking and a driver app for going online, accepting rides, and tracking earnings</li>
+          <li>Real-time dispatch on Firestore streams: online drivers see matching ride requests broadcast live, with client-side radius filtering and distance-based fare calculation</li>
+          <li>GoRouter redirect guard enforces passenger/driver account separation and keeps every screen in the state the ride status dictates</li>
+          <li>Cloud Functions (TypeScript) drive the ride lifecycle — accept/cancel/arrival/completion notifications, two-way rating aggregation, promo codes, and scheduled cleanup of stale or unpaid rides</li>
+          <li>GCash/Maya in-app payments via a PayMongo integration with server-side webhook handling</li>
+          <li>Admin portal (React + Tailwind) for driver approval, ride oversight, and platform configuration</li>
+          <li>Currently pre-launch — working through Philippine business registration (SEC/BIR) and an LTFRB permit application alongside the engineering</li>
+        </ul>
+        <div class="own-tech">
+          <span class="own-tag">Flutter</span>
+          <span class="own-tag">Riverpod</span>
+          <span class="own-tag">Firebase</span>
+          <span class="own-tag">Cloud Functions</span>
+          <span class="own-tag">TypeScript</span>
+          <span class="own-tag">React</span>
+          <span class="own-tag">PayMongo</span>
+          <span class="own-tag">Google Maps</span>
         </div>
       </div>
 
