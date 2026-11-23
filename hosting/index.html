@@ -4,48 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zaldy Bughaw — Senior iOS Developer</title>
+    <meta name="description" content="Zaldy Bughaw — Senior iOS Developer. Swift, SwiftUI, UIKit, Firebase, Flutter. Published App Store apps and founder-built products." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #080818;
-      --card:      #12122a;
-      --primary:   #8b5cf6;
-      --secondary: #6366f1;
-      --accent:    #f59e0b;
-      --text:      #ffffff;
-      --subtext:   #a5b4fc;
-      --divider:   #1e1e3a;
-      --cyan:      #06b6d4;
+      --bg:       #ffffff;
+      --bg-alt:   #f7f8fa;
+      --card:     #ffffff;
+      --ink:      #0f172a;
+      --text:     #334155;
+      --muted:    #64748b;
+      --line:     #e2e8f0;
+      --primary:  #1d4ed8;
+      --primary-d:#1e40af;
+      --tint:     #eff4ff;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
-      line-height: 1.6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 16px; line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* Ambient glows */
-    body::before, body::after {
-      content: '';
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    body::before {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(139,92,246,.12) 0%, transparent 70%);
-      top: -200px; left: -200px;
-    }
-    body::after {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(6,182,212,.08) 0%, transparent 70%);
-      bottom: -100px; right: -100px;
+    .icon {
+      width: 1em; height: 1em; flex-shrink: 0;
+      fill: none; stroke: currentColor; stroke-width: 1.8;
+      stroke-linecap: round; stroke-linejoin: round;
     }
 
     /* Nav */
@@ -53,296 +46,198 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px; height: 64px;
-      background: rgba(8,8,24,.88);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--divider);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
-    .nav-logo {
-      font-size: 18px; font-weight: 800; letter-spacing: -0.5px;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    nav ul { list-style: none; display: flex; gap: 36px; }
-    nav a { color: var(--subtext); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
-    nav a:hover { color: #fff; }
+    .nav-logo { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; color: var(--ink); }
+    nav ul { list-style: none; display: flex; gap: 30px; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .15s; }
+    nav a:hover { color: var(--primary); }
 
-    /* Mobile nav toggle */
     .nav-toggle {
       display: none;
       flex-direction: column; align-items: center; justify-content: center;
       gap: 5px; width: 38px; height: 38px;
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 10px; cursor: pointer; padding: 0;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 8px; cursor: pointer; padding: 0;
     }
     .nav-toggle span {
       display: block; width: 18px; height: 2px; border-radius: 2px;
-      background: var(--subtext);
-      transition: transform .25s ease, opacity .2s ease, background .2s ease;
+      background: var(--ink);
+      transition: transform .25s ease, opacity .2s ease;
     }
-    .nav-toggle:hover span { background: #fff; }
     .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
     .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* Shared layout */
-    section { position: relative; z-index: 1; }
-    .wrap { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+    section { position: relative; padding: 88px 0; }
+    section:nth-of-type(even) { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
 
-    /* Section headers */
-    .s-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; }
-    .s-title  { font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 44px; }
-    .s-title span {
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
+    .s-label { font-size: 12px; font-weight: 600; letter-spacing: 1.6px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; }
+    .s-title { font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; letter-spacing: -0.6px; color: var(--ink); line-height: 1.2; margin-bottom: 40px; }
 
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 100px 0 80px;
-    }
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 220px; gap: 60px; align-items: center; width: 100%;
-    }
+    /* Hero */
+    #hero { padding: 148px 0 96px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 260px; gap: 64px; align-items: center; }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(139,92,246,.13); border: 1px solid rgba(139,92,246,.3);
-      border-radius: 99px; padding: 6px 18px;
-      font-size: 13px; font-weight: 600; color: var(--primary);
-      margin-bottom: 22px;
+      display: inline-block;
+      font-size: 13px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 16px;
     }
-    h1 { font-size: clamp(44px, 7vw, 72px); font-weight: 900; line-height: 1.02; letter-spacing: -2px; }
-    h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-sub { font-size: 18px; color: var(--subtext); max-width: 500px; margin-top: 18px; }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+    h1 { font-size: clamp(40px, 6vw, 60px); font-weight: 800; line-height: 1.05; letter-spacing: -1.6px; color: var(--ink); }
+    .hero-sub { font-size: 18px; color: var(--text); max-width: 540px; margin-top: 20px; }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 26px; border-radius: 14px;
-      font-size: 15px; font-weight: 600; text-decoration: none;
-      transition: transform .15s, box-shadow .15s; border: none; cursor: pointer;
+      padding: 11px 20px; border-radius: 8px;
+      font-family: inherit; font-size: 14.5px; font-weight: 600; text-decoration: none;
+      border: 1px solid transparent; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
     }
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff; box-shadow: 0 8px 28px rgba(139,92,246,.35);
-    }
-    .btn-primary:hover { box-shadow: 0 12px 36px rgba(139,92,246,.5); }
-    .btn-outline {
-      background: rgba(255,255,255,.06); color: var(--subtext);
-      border: 1px solid rgba(255,255,255,.1);
-    }
-    .btn-outline:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .btn .icon { font-size: 16px; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-d); }
+    .btn-outline { background: #fff; color: var(--ink); border-color: #cbd5e1; }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-    .contact-row { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 36px; }
-    .contact-chip {
-      display: flex; align-items: center; gap: 9px;
-      font-size: 13px; color: var(--subtext); text-decoration: none;
-      transition: color .2s;
-    }
-    .contact-chip:hover { color: var(--primary); }
-    .contact-chip .ic {
-      width: 30px; height: 30px; border-radius: 8px;
-      background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.2);
-      display: flex; align-items: center; justify-content: center; font-size: 14px;
+    .contact-row { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .contact-chip { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); text-decoration: none; transition: color .15s; }
+    a.contact-chip:hover { color: var(--primary); }
+    .contact-chip .icon { font-size: 16px; color: var(--primary); }
+
+    .avatar-wrap { display: flex; justify-content: center; }
+    .avatar {
+      width: 260px; height: 260px; border-radius: 50%; object-fit: cover; display: block;
+      border: 6px solid #fff;
+      box-shadow: 0 0 0 1px var(--line), 0 18px 40px rgba(15,23,42,.12);
     }
 
-    /* Avatar */
-    .avatar-wrap { display: flex; align-items: center; justify-content: center; }
-    .avatar-ring {
-      width: 200px; height: 200px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      padding: 3px;
-      animation: glow 3s ease-in-out infinite;
-    }
-    @keyframes glow {
-      0%,100% { box-shadow: 0 0 40px rgba(139,92,246,.35); }
-      50%      { box-shadow: 0 0 80px rgba(139,92,246,.65); }
-    }
-    .avatar-inner {
-      width: 100%; height: 100%; border-radius: 50%;
-      background: var(--card);
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
-    }
-    .avatar-letters {
-      font-size: 56px; font-weight: 900;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .avatar-tag { font-size: 11px; font-weight: 700; color: var(--subtext); letter-spacing: 1px; }
-
-    /* ─── SKILLS ─── */
-    #skills { padding: 100px 0; }
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 10px; }
+    /* Skills */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
     .chip {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 12px;
-      padding: 13px 15px; font-size: 13.5px; font-weight: 500; color: var(--subtext);
-      display: flex; align-items: center; gap: 10px;
-      transition: border-color .2s, color .2s, transform .15s;
+      background: #fff; border: 1px solid var(--line); border-radius: 8px;
+      padding: 8px 14px; font-size: 14px; font-weight: 500; color: var(--ink);
     }
-    .chip:hover { border-color: var(--primary); color: var(--text); transform: translateY(-2px); }
-    .chip-dot {
-      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-    }
+    .chip-dot { display: none; }
 
-    /* ─── EXPERIENCE ─── */
-    #experience { padding: 100px 0; }
-    .timeline { position: relative; }
-    .timeline::before {
-      content: ''; position: absolute; left: 19px; top: 4px; bottom: 20px;
-      width: 2px; background: linear-gradient(to bottom, var(--primary), transparent);
-    }
-    .tl-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 36px; }
+    /* Experience */
+    .timeline { position: relative; border-left: 2px solid var(--line); margin-left: 6px; }
+    .tl-item { position: relative; padding: 0 0 40px 32px; }
+    .tl-item:last-child { padding-bottom: 0; }
     .tl-dot {
-      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex; align-items: center; justify-content: center; font-size: 18px;
-      box-shadow: 0 0 18px rgba(139,92,246,.45); margin-top: 2px;
+      position: absolute; left: -8px; top: 7px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff; border: 3px solid var(--primary);
     }
-    .tl-card {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 20px;
-      padding: 24px 28px; transition: border-color .25s;
-    }
-    .tl-card:hover { border-color: rgba(139,92,246,.4); }
-    .tl-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
-    .tl-company { font-size: 18px; font-weight: 700; }
-    .tl-period {
-      font-size: 12px; font-weight: 700; color: var(--accent);
-      background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.22);
-      border-radius: 99px; padding: 3px 12px; white-space: nowrap;
-    }
-    .tl-role { font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 14px; }
+    .tl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .tl-company { font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -0.2px; }
+    .tl-period { font-size: 13.5px; font-weight: 500; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .tl-role { font-size: 14.5px; font-weight: 600; color: var(--primary); margin: 2px 0 12px; }
     .tl-list { list-style: none; }
-    .tl-list li { font-size: 14px; color: var(--subtext); padding: 3px 0 3px 18px; position: relative; }
-    .tl-list li::before { content: '›'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .tl-list li { font-size: 15px; color: var(--text); padding: 3px 0 3px 18px; position: relative; }
+    .tl-list li::before { content: ''; position: absolute; left: 2px; top: 13px; width: 5px; height: 5px; border-radius: 50%; background: #94a3b8; }
 
-    /* ─── PROJECTS ─── */
-    #projects { padding: 100px 0; }
-    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    /* Projects */
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
     .proj-card {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 20px;
-      padding: 24px; display: flex; flex-direction: column; text-decoration: none;
-      transition: border-color .2s, transform .15s;
+      background: #fff; border: 1px solid var(--line); border-radius: 12px;
+      padding: 22px; display: flex; flex-direction: column; text-decoration: none;
+      transition: border-color .15s, box-shadow .15s;
     }
-    .proj-card:hover { border-color: rgba(139,92,246,.4); transform: translateY(-4px); }
-    .proj-icon {
-      width: 48px; height: 48px; border-radius: 14px; margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: flex; align-items: center; justify-content: center; font-size: 22px;
-    }
-    .proj-name { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .proj-desc { font-size: 13px; color: var(--subtext); flex: 1; }
-    .proj-cta { margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--primary); }
+    .proj-card:hover { border-color: #bfd0f7; box-shadow: 0 6px 20px rgba(15,23,42,.07); }
+    .proj-name { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .proj-desc { font-size: 14px; color: var(--muted); flex: 1; line-height: 1.6; }
+    .proj-cta { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--primary); }
 
-    /* ─── OWN APPS ─── */
-    #own-apps { padding: 100px 0; }
-    .own-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 24px; }
+    /* Own apps / ventures */
+    .own-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .own-card {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 24px;
-      padding: 32px; display: flex; flex-direction: column; gap: 20px;
-      transition: border-color .25s, transform .2s;
+      background: #fff; border: 1px solid var(--line); border-radius: 14px;
+      padding: 28px; display: flex; flex-direction: column; gap: 16px;
+      transition: border-color .15s, box-shadow .15s;
     }
-    .own-card:hover { border-color: rgba(139,92,246,.45); transform: translateY(-4px); }
-    .own-card-head { display: flex; align-items: flex-start; gap: 18px; }
+    .own-card:hover { border-color: #bfd0f7; box-shadow: 0 6px 20px rgba(15,23,42,.07); }
+    .own-card-head { display: flex; align-items: flex-start; gap: 16px; }
     .own-app-icon {
-      width: 64px; height: 64px; border-radius: 16px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      display: flex; align-items: center; justify-content: center; font-size: 30px;
-      box-shadow: 0 8px 24px rgba(139,92,246,.35);
+      width: 48px; height: 48px; border-radius: 10px; flex-shrink: 0;
+      background: var(--tint); color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
     }
-    .own-app-meta { flex: 1; }
-    .own-app-name { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
-    .own-app-sub { font-size: 13px; color: var(--subtext); margin-bottom: 10px; }
-    .own-store-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 700; color: var(--primary); text-decoration: none;
-      background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.25);
-      border-radius: 99px; padding: 4px 14px;
-      transition: background .2s;
-    }
-    .own-store-link:hover { background: rgba(139,92,246,.22); }
-    .own-desc { font-size: 14px; color: var(--subtext); line-height: 1.65; }
+    .own-app-icon.logo { background: #fff; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+    .own-app-icon.logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .own-app-meta { flex: 1; min-width: 0; }
+    .own-app-name { font-size: 19px; font-weight: 700; color: var(--ink); letter-spacing: -0.2px; line-height: 1.3; }
+    .own-app-sub { font-size: 13.5px; color: var(--muted); margin: 2px 0 8px; }
+    .own-store-link { font-size: 13px; font-weight: 600; color: var(--primary); text-decoration: none; }
+    .own-store-link:hover { text-decoration: underline; }
+    .own-desc { font-size: 14.5px; color: var(--text); }
     .own-highlights { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .own-highlights li { font-size: 13px; color: var(--subtext); padding-left: 18px; position: relative; }
-    .own-highlights li::before { content: '›'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
-    .own-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+    .own-highlights li { font-size: 14px; color: var(--text); padding-left: 18px; position: relative; line-height: 1.55; }
+    .own-highlights li::before { content: ''; position: absolute; left: 2px; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: #94a3b8; }
+    .own-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 4px; }
     .own-tag {
-      font-size: 11.5px; font-weight: 600; color: var(--cyan);
-      background: rgba(6,182,212,.1); border: 1px solid rgba(6,182,212,.2);
-      border-radius: 8px; padding: 3px 10px;
+      font-size: 12px; font-weight: 500; color: #475569;
+      background: #f1f5f9; border-radius: 6px; padding: 3px 9px;
     }
-    @media (max-width: 680px) { .own-grid { grid-template-columns: 1fr; } }
 
-    /* ─── ACHIEVEMENTS ─── */
-    #achievements { padding: 100px 0; }
+    /* Achievements */
     .award-banner {
-      display: flex; align-items: center; gap: 22px;
-      background: linear-gradient(135deg, rgba(245,158,11,.1), rgba(239,68,68,.07));
-      border: 1px solid rgba(245,158,11,.25); border-radius: 20px;
-      padding: 28px 32px; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 20px;
+      background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--primary);
+      border-radius: 12px; padding: 24px 28px; margin-bottom: 20px;
     }
-    .award-trophy { font-size: 52px; }
-    .award-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-    .award-sub { font-size: 14px; color: var(--subtext); }
-    .award-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .award-trophy {
+      width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+      background: var(--tint); color: var(--primary);
+      display: flex; align-items: center; justify-content: center; font-size: 26px;
+    }
+    .award-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .award-sub { font-size: 14px; color: var(--muted); }
+    .award-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
     .award-link {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 14px;
-      padding: 16px 18px; text-decoration: none; display: flex; align-items: center; gap: 12px;
-      transition: border-color .2s;
+      background: #fff; border: 1px solid var(--line); border-radius: 10px;
+      padding: 14px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      transition: border-color .15s;
     }
     .award-link:hover { border-color: var(--primary); }
-    .award-link-ic {
-      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
-      background: rgba(139,92,246,.15);
-      display: flex; align-items: center; justify-content: center; font-size: 16px;
-    }
-    .award-link-name { font-size: 14px; font-weight: 600; color: #fff; }
-    .award-link-type { font-size: 12px; color: var(--subtext); }
+    .award-link > .icon { font-size: 16px; color: var(--muted); }
+    .award-link-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+    .award-link-type { font-size: 12.5px; color: var(--muted); }
 
-    /* ─── EDUCATION ─── */
-    #education { padding: 100px 0; }
-    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-    .edu-card {
-      background: var(--card); border: 1px solid var(--divider); border-radius: 18px; padding: 24px;
-    }
-    .edu-level { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; }
-    .edu-school { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .edu-detail { font-size: 13px; color: var(--subtext); }
-    .edu-year {
-      display: inline-block; margin-top: 12px;
-      font-size: 12px; font-weight: 600; color: var(--accent);
-      background: rgba(245,158,11,.1); border-radius: 99px; padding: 2px 10px;
-    }
+    /* Education */
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .edu-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+    .edu-level { font-size: 11.5px; font-weight: 600; letter-spacing: 1.4px; color: var(--primary); text-transform: uppercase; margin-bottom: 6px; }
+    .edu-school { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .edu-detail { font-size: 14px; color: var(--muted); }
+    .edu-year { display: block; margin-top: 10px; font-size: 13px; font-weight: 500; color: var(--muted); }
 
-    /* ─── FOOTER ─── */
-    footer {
-      position: relative; z-index: 1; text-align: center;
-      padding: 56px 24px; border-top: 1px solid var(--divider);
-    }
-    footer p { font-size: 14px; color: var(--subtext); line-height: 1.8; }
-    footer a { color: var(--subtext); text-decoration: none; }
+    /* Footer */
+    footer { text-align: center; padding: 44px 24px; border-top: 1px solid var(--line); background: #fff; }
+    footer p { font-size: 14px; color: var(--muted); line-height: 1.9; }
+    footer strong { color: var(--ink); font-weight: 600; }
+    footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--primary); }
-    footer strong {
-      background: linear-gradient(135deg, var(--primary), var(--cyan));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 680px) {
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav ul { gap: 20px; }
+      .own-grid { grid-template-columns: 1fr; }
+      .hero-grid { grid-template-columns: 1fr 200px; gap: 40px; }
+      .avatar { width: 200px; height: 200px; }
+    }
+    @media (max-width: 760px) {
       nav { padding: 0 20px; }
       .nav-toggle { display: flex; }
       nav ul {
         flex-direction: column; gap: 0;
         position: fixed; top: 64px; left: 0; right: 0; z-index: 100;
-        background: var(--card);
-        border-bottom: 1px solid var(--divider);
-        box-shadow: 0 16px 32px rgba(0,0,0,.4);
+        background: #fff; border-bottom: 1px solid var(--line);
+        box-shadow: 0 16px 32px rgba(15,23,42,.1);
         padding: 8px 0;
         transform: translateY(-8px);
         opacity: 0; visibility: hidden; pointer-events: none;
@@ -350,19 +245,36 @@
       }
       nav ul.open { transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
       nav ul li { width: 100%; }
-      nav ul li a { display: block; padding: 14px 24px; font-size: 15px; }
-      nav ul li + li a { border-top: 1px solid var(--divider); }
-      .hero-grid { grid-template-columns: 1fr; }
-      .avatar-wrap { display: none; }
-      .timeline::before { display: none; }
-      .tl-item { grid-template-columns: 1fr; }
-      .tl-dot { display: none; }
-      #hero { padding: 88px 0 60px; }
+      nav ul li a { display: block; padding: 14px 24px; font-size: 15px; color: var(--ink); }
+      nav ul li + li a { border-top: 1px solid var(--line); }
+      section { padding: 64px 0; }
+      #hero { padding: 96px 0 56px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .avatar-wrap { order: -1; justify-content: flex-start; }
+      .avatar { width: 132px; height: 132px; border-width: 4px; }
       .wrap { padding: 0 16px; }
+      .own-card { padding: 22px; }
+      .award-banner { padding: 20px; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
+  <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-navigation" viewBox="0 0 24 24"><path d="M3 11 21 3l-8 18-2-8z"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 9h1a3.5 3.5 0 0 1 0 7h-1"/><path d="M4 9h13v8a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M7 2v3M10.5 2v3M14 2v3"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9 5 3h14l2 6"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v9h14v-9"/><path d="M10 21v-5h4v5"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 2 6.5L20.5 12 14 14.5 12 21l-2-6.5L3.5 12 10 9.5z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.2"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M6 3h12v6a6 6 0 0 1-12 0z"/><path d="M12 15v4"/><path d="M8 21h8"/></symbol>
+</svg>
 
 <!-- Nav -->
 <nav>
@@ -371,7 +283,7 @@
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#own-apps">Own Apps</a></li>
+    <li><a href="#own-apps">Apps</a></li>
     <li><a href="#ventures">Ventures</a></li>
     <li><a href="#achievements">Achievements</a></li>
     <li><a href="#education">Education</a></li>
@@ -386,36 +298,31 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="hero-badge">📱 Senior iOS Developer</div>
-        <h1>Zaldy<br><em>Bughaw</em></h1>
+        <div class="hero-badge">Senior iOS Developer</div>
+        <h1>Zaldy Bughaw</h1>
         <p class="hero-sub">
           Building polished, high-performance iOS applications — from UIKit and SwiftUI
           to AI-powered features, SDK integrations, and App Store launches.
         </p>
         <div class="hero-ctas">
-          <a href="mailto:zframeworkdev@gmail.com" class="btn btn-primary">✉ Get in Touch</a>
-          <a href="https://www.linkedin.com/in/zbughaw/" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
-          <a href="/zaldy-bughaw-resume.pdf" download class="btn btn-outline">⬇ Download Resume</a>
+          <a href="mailto:zframeworkdev@gmail.com" class="btn btn-primary"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Get in Touch</a>
+          <a href="https://www.linkedin.com/in/zbughaw/" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+          <a href="/zaldy-bughaw-resume.pdf" download class="btn btn-outline"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>Download Resume</a>
         </div>
         <div class="contact-row">
           <a href="tel:+639062897831" class="contact-chip">
-            <span class="ic">📞</span>+63-906-289-7831
+            <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>+63-906-289-7831
           </a>
           <a href="mailto:zframeworkdev@gmail.com" class="contact-chip">
-            <span class="ic">✉</span>zframeworkdev@gmail.com
+            <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>zframeworkdev@gmail.com
           </a>
           <span class="contact-chip">
-            <span class="ic">📍</span>Puerto Princesa, Palawan, PH
+            <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Puerto Princesa, Palawan, PH
           </span>
         </div>
       </div>
       <div class="avatar-wrap">
-        <div class="avatar-ring">
-          <div class="avatar-inner">
-            <div class="avatar-letters">ZB</div>
-            <div class="avatar-tag">ZB</div>
-          </div>
-        </div>
+        <img class="avatar" src="/profile.jpg" alt="Portrait of Zaldy Bughaw" width="260" height="260" />
       </div>
     </div>
   </div>
@@ -425,7 +332,7 @@
 <section id="skills">
   <div class="wrap">
     <div class="s-label">Technical Skills</div>
-    <div class="s-title">Skills &amp; <span>Expertise</span></div>
+    <div class="s-title">Skills &amp; Expertise</div>
     <div class="skills-grid">
       <div class="chip"><span class="chip-dot"></span>Swift</div>
       <div class="chip"><span class="chip-dot"></span>SwiftUI</div>
@@ -457,12 +364,11 @@
 <section id="experience">
   <div class="wrap">
     <div class="s-label">Career</div>
-    <div class="s-title">Job <span>Experience</span></div>
+    <div class="s-title">Job Experience</div>
     <div class="timeline">
 
       <div class="tl-item">
-        <div class="tl-dot">🏢</div>
-        <div class="tl-card">
+        <div class="tl-dot"></div>
           <div class="tl-head">
             <div class="tl-company">Aktivolabs</div>
             <div class="tl-period">2023 – Present</div>
@@ -476,12 +382,10 @@
             <li>Ensure App Store compliance with Apple guidelines; manage submissions.</li>
             <li>Participate in agile processes: sprint planning, estimations, and design sessions.</li>
           </ul>
-        </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-dot">💼</div>
-        <div class="tl-card">
+        <div class="tl-dot"></div>
           <div class="tl-head">
             <div class="tl-company">Acadtech Inc.</div>
             <div class="tl-period">2019 – 2023</div>
@@ -494,12 +398,10 @@
             <li>Analyzed and optimized application code for efficiency and performance.</li>
             <li>Configured certificates and provisioning profiles; published apps to the App Store.</li>
           </ul>
-        </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-dot">🖥</div>
-        <div class="tl-card">
+        <div class="tl-dot"></div>
           <div class="tl-head">
             <div class="tl-company">Microsourcing</div>
             <div class="tl-period">2013 – 2019</div>
@@ -511,12 +413,10 @@
             <li>Ensured adherence to technical design throughout the full development lifecycle.</li>
             <li>Collaborated closely with PM, UX Designer, and QA in agile sprints.</li>
           </ul>
-        </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-dot">🎮</div>
-        <div class="tl-card">
+        <div class="tl-dot"></div>
           <div class="tl-head">
             <div class="tl-company">PODDCorp</div>
             <div class="tl-period">2009 – 2013</div>
@@ -528,12 +428,10 @@
             <li>Handled UIKit navigation; integrated 2D engine for custom UI animations.</li>
             <li>Mentored junior engineers; drove innovation and strong coding practices.</li>
           </ul>
-        </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-dot">🌐</div>
-        <div class="tl-card">
+        <div class="tl-dot"></div>
           <div class="tl-head">
             <div class="tl-company">Playtech Bingames Limited</div>
             <div class="tl-period">2007 – 2009</div>
@@ -545,10 +443,9 @@
             <li>Trained new employees on software rebranding workflows.</li>
             <li>Authored process documentation used by QA for testing.</li>
           </ul>
-        </div>
       </div>
 
-    </div>
+      </div>
   </div>
 </section>
 
@@ -556,102 +453,88 @@
 <section id="projects">
   <div class="wrap">
     <div class="s-label">Portfolio</div>
-    <div class="s-title">iOS <span>Projects</span></div>
+    <div class="s-title">iOS Projects</div>
     <div class="proj-grid">
 
       <a href="https://apps.apple.com/br/app/aktivo/id1344182347?l=en-GB" target="_blank" class="proj-card">
-        <div class="proj-icon">❤️</div>
         <div class="proj-name">Aktivo</div>
         <div class="proj-desc">Health &amp; wellness app using fitness tracker and Apple Health data to generate a personalized Aktivo Score and long-term health recommendations.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/br/app/glucolife/id1499658558?l=en-GB" target="_blank" class="proj-card">
-        <div class="proj-icon">🩺</div>
         <div class="proj-name">Glucolife</div>
         <div class="proj-desc">Doctor-developed diabetes management app that empowers users to stay active, eat healthy, and monitor prediabetes and diabetes.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/fx1/id1626034650" target="_blank" class="proj-card">
-        <div class="proj-icon">⚽</div>
         <div class="proj-name">FX1</div>
         <div class="proj-desc">Fan engagement platform dedicated to supporting sporting organizations, clubs, and leagues like never before.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/activeplace/id1543314003" target="_blank" class="proj-card">
-        <div class="proj-icon">🏃</div>
         <div class="proj-name">ActivePlace</div>
         <div class="proj-desc">Social platform for the active lifestyle community — stripped back to health, fitness, and motivation with personalized profiles.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/pet-nexus/id1536016882" target="_blank" class="proj-card">
-        <div class="proj-icon">🐾</div>
         <div class="proj-name">PetNexus</div>
         <div class="proj-desc">Veterinarian-connected app for pet owners to access records, appointments, and secure messaging with their vet.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/demandforce/id1506207409" target="_blank" class="proj-card">
-        <div class="proj-icon">📊</div>
         <div class="proj-name">DemandForce</div>
         <div class="proj-desc">HIPAA-compliant business management app syncing clients, schedules, appointments, and two-way text conversations in real time.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/martindale-leads-manager/id1251583507" target="_blank" class="proj-card">
-        <div class="proj-icon">⚖️</div>
         <div class="proj-name">Martindale Leads Manager</div>
         <div class="proj-desc">Legal industry CRM for managing prospective clients via push notifications and in-app messaging.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://apps.apple.com/us/app/black-friday-2019-deals/id1051612537" target="_blank" class="proj-card">
-        <div class="proj-icon">🛍</div>
         <div class="proj-name">Black Friday Deals</div>
         <div class="proj-desc">Ben's Bargains Black Friday app with ad scans from 100+ major retailers, deal alerts, and curated offers.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/sesame-mobile-practice/id1248036943?mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">🦷</div>
         <div class="proj-name">Sesame Mobile Practice</div>
         <div class="proj-desc">HIPAA-compliant Ortho/Dental practice management with secure colleague messaging and imaging integration.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/official-bens-bargains-app/id986201093?mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">🏷</div>
         <div class="proj-name">Ben's Bargains</div>
         <div class="proj-desc">Deal discovery app with price histories, merchant comparisons, and Deal Alert push notifications across 2,000+ brands.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/fitday-free-diet-weight-loss/id410157615?mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">🥗</div>
         <div class="proj-name">FitDay</div>
         <div class="proj-desc">Free diet and weight-loss journal for tracking meals and activities with advanced PC version and enhanced reporting.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/garage-talk/id964719306?mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">🚗</div>
         <div class="proj-name">Garage Talk</div>
         <div class="proj-desc">Free app connecting car, truck, motorcycle, and powersports enthusiasts through top internet communities.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/officite-doctor-portal/id848386023?ls=1&mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">🏥</div>
         <div class="proj-name">Officite Doctor Portal</div>
         <div class="proj-desc">Free mobile portal for managing a medical practice's web presence, marketing, and online activity on the go.</div>
         <div class="proj-cta">View on App Store ↗</div>
       </a>
 
       <a href="https://itunes.apple.com/us/app/id349992194?mt=8" target="_blank" class="proj-card">
-        <div class="proj-icon">👁</div>
         <div class="proj-name">Ocularis</div>
         <div class="proj-desc">Vision-testing game with Tap The Diff, Camouflage Mania, and Color Challenge to evaluate sharpness, shape recognition, and color blindness.</div>
         <div class="proj-cta">View on App Store ↗</div>
@@ -665,16 +548,16 @@
 <section id="own-apps">
   <div class="wrap">
     <div class="s-label">Personal Projects</div>
-    <div class="s-title">My Own <span>Apps</span></div>
+    <div class="s-title">My Own Apps</div>
     <div class="own-grid">
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">✨</div>
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg></div>
           <div class="own-app-meta">
             <div class="own-app-name">Luminarys</div>
             <div class="own-app-sub">Daily Quotes &amp; Motivation · iOS App</div>
-            <a href="https://apps.apple.com/us/app/luminarys/id6760375603" target="_blank" class="own-store-link">↗ View on App Store</a>
+            <a href="https://apps.apple.com/us/app/luminarys/id6760375603" target="_blank" class="own-store-link">View on App Store ↗</a>
           </div>
         </div>
         <p class="own-desc">
@@ -700,11 +583,11 @@
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">📸</div>
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></div>
           <div class="own-app-meta">
             <div class="own-app-name">Phorium</div>
             <div class="own-app-sub">AI-Powered Photo Analysis · iOS App</div>
-            <a href="https://apps.apple.com/us/app/phorium/id6761375521" target="_blank" class="own-store-link">↗ View on App Store</a>
+            <a href="https://apps.apple.com/us/app/phorium/id6761375521" target="_blank" class="own-store-link">View on App Store ↗</a>
           </div>
         </div>
         <p class="own-desc">
@@ -740,16 +623,77 @@
 <section id="ventures">
   <div class="wrap">
     <div class="s-label">Independent Work</div>
-    <div class="s-title"><span>Ventures</span></div>
+    <div class="s-title">Products &amp; Ventures</div>
     <div class="own-grid">
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">📱</div>
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-coffee"/></svg></div>
+          <div class="own-app-meta">
+            <div class="own-app-name">QuantumCup</div>
+            <div class="own-app-sub">Point of Sale for Caf&eacute;s &amp; Restaurants · Founder / Own Product</div>
+            <a href="https://quantumcup.web.app/" target="_blank" rel="noopener" class="own-store-link">Visit site ↗</a>
+          </div>
+        </div>
+        <p class="own-desc">
+          My own subscription point-of-sale product for caf&eacute;s and restaurants in the Philippines. The counter runs on Android tablets and keeps selling when the internet goes down; owners see every branch from a web portal that opens in any browser.
+        </p>
+        <ul class="own-highlights">
+          <li>Offline-first selling — each sale is saved on the device first, then synced to the cloud when it is back online</li>
+          <li>A separate private database for every business, never mixed with another business's data</li>
+          <li>Recipe-based inventory that takes ingredients off stock with every sale, plus deliveries, waste, and stocktakes with full movement history</li>
+          <li>QR ordering at the table — customers scan, browse the menu, and send their order to the counter</li>
+          <li>Shifts and cash counting, PIN sign-in for cashiers, role-based access, and an activity log</li>
+          <li>Reports by hour, day, product, payment method, cashier, and branch; Bluetooth thermal receipt printing</li>
+          <li>Tiered monthly and yearly plans with add-on branches and devices</li>
+        </ul>
+        <div class="own-tech">
+          <span class="own-tag">Android</span>
+          <span class="own-tag">Web Owner Portal</span>
+          <span class="own-tag">Offline-First Sync</span>
+          <span class="own-tag">Multi-Tenant</span>
+          <span class="own-tag">QR Ordering</span>
+          <span class="own-tag">Bluetooth Printing</span>
+        </div>
+      </div>
+
+      <div class="own-card">
+        <div class="own-card-head">
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-store"/></svg></div>
+          <div class="own-app-meta">
+            <div class="own-app-name">Quantum Store</div>
+            <div class="own-app-sub">Point of Sale for Shops &amp; Boutiques · Founder / Own Product</div>
+            <a href="https://quantumstore-site.web.app/" target="_blank" rel="noopener" class="own-store-link">Visit site ↗</a>
+          </div>
+        </div>
+        <p class="own-desc">
+          The retail sibling of QuantumCup — a subscription point-of-sale for shops and boutiques. Checkout runs on Android tablets with USB and Bluetooth barcode scanners, works offline, and reports to the same kind of multi-branch owner portal.
+        </p>
+        <ul class="own-highlights">
+          <li>Barcode-driven checkout — USB or Bluetooth scanner, the tablet camera, or search by name or SKU</li>
+          <li>Item variants such as size, color, or model, with stock tracked per item and per variant</li>
+          <li>Supplier receiving, stocktakes, and a full history of every stock movement</li>
+          <li>Read-only QR catalog so customers can browse items and prices on their own phone</li>
+          <li>Offline-first sync, a private database per business, shifts and cash counting, roles, and an activity log</li>
+          <li>Plans from ₱599 to ₱2,999 a month, with add-on branches and devices</li>
+        </ul>
+        <div class="own-tech">
+          <span class="own-tag">Android</span>
+          <span class="own-tag">Web Owner Portal</span>
+          <span class="own-tag">Offline-First Sync</span>
+          <span class="own-tag">Multi-Tenant</span>
+          <span class="own-tag">Barcode Scanning</span>
+          <span class="own-tag">QR Catalog</span>
+        </div>
+      </div>
+
+      <div class="own-card">
+        <div class="own-card-head">
+          <div class="own-app-icon logo"><img src="/logos/justincase.jpg" alt="JustInCase logo" width="48" height="48" /></div>
           <div class="own-app-meta">
             <div class="own-app-name">JustInCase</div>
             <div class="own-app-sub">Phones &amp; Accessories on Installment · Founder / Full-Stack Project</div>
-            <a href="https://justincase-site.web.app" target="_blank" class="own-store-link">↗ Visit site</a>
+            <a href="https://justincase-site.web.app" target="_blank" class="own-store-link">Visit site ↗</a>
           </div>
         </div>
         <p class="own-desc">
@@ -776,11 +720,11 @@
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">🏍</div>
+          <div class="own-app-icon logo"><img src="/logos/vreyo.png" alt="Vreyo logo" width="48" height="48" /></div>
           <div class="own-app-meta">
             <div class="own-app-name">Vreyo</div>
             <div class="own-app-sub">Ride &amp; Delivery Platform (Philippines) · Founder / Full-Stack Project</div>
-            <a href="https://vreyo2026.web.app" target="_blank" class="own-store-link">↗ Visit site</a>
+            <a href="https://vreyo2026.web.app" target="_blank" class="own-store-link">Visit site ↗</a>
           </div>
         </div>
         <p class="own-desc">
@@ -809,7 +753,7 @@
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">☕</div>
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-coffee"/></svg></div>
           <div class="own-app-meta">
             <div class="own-app-name">Xin Chao Coffee Shop</div>
             <div class="own-app-sub">Offline-First POS &amp; Management System · Full-Stack Client Project</div>
@@ -839,7 +783,7 @@
 
       <div class="own-card">
         <div class="own-card-head">
-          <div class="own-app-icon">🤝</div>
+          <div class="own-app-icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></div>
           <div class="own-app-meta">
             <div class="own-app-name">Branded Partner Program</div>
             <div class="own-app-sub">White-Label Coffee Shop Platform · Licensing &amp; Reseller Offering</div>
@@ -869,10 +813,10 @@
 <section id="achievements">
   <div class="wrap">
     <div class="s-label">Recognition</div>
-    <div class="s-title"><span>Achievements</span></div>
+    <div class="s-title">Achievements</div>
 
     <div class="award-banner">
-      <div class="award-trophy">🏆</div>
+      <div class="award-trophy"><svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg></div>
       <div>
         <div class="award-title">2nd Place — ChupaMobile Worldwide Mobile Programming Contest</div>
         <div class="award-sub">March 2012 · Recognized globally for custom iOS component development</div>
@@ -881,32 +825,32 @@
 
     <div class="award-links">
       <a href="https://www.chupamobile.com/ios-custom-controls/ijoystick-358" target="_blank" class="award-link">
-        <div class="award-link-ic">🕹</div>
         <div>
           <div class="award-link-name">iJoystick</div>
           <div class="award-link-type">iOS Custom Control</div>
         </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
       </a>
       <a href="https://www.chupamobile.com/ios-custom-controls/zcombobox-365" target="_blank" class="award-link">
-        <div class="award-link-ic">📋</div>
         <div>
           <div class="award-link-name">ZComboBox</div>
           <div class="award-link-type">iOS Custom Control</div>
         </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
       </a>
       <a href="https://www.chupamobile.com/ios-custom-controls/zwebbrowser-397" target="_blank" class="award-link">
-        <div class="award-link-ic">🌐</div>
         <div>
           <div class="award-link-name">ZWebBrowser</div>
           <div class="award-link-type">iOS Custom Control</div>
         </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
       </a>
       <a href="https://www.chupamobile.com/ios-forms/zquicklook-479" target="_blank" class="award-link">
-        <div class="award-link-ic">🔍</div>
         <div>
           <div class="award-link-name">ZQuickLook</div>
           <div class="award-link-type">iOS Form Component</div>
         </div>
+        <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>
       </a>
     </div>
   </div>
@@ -916,7 +860,7 @@
 <section id="education">
   <div class="wrap">
     <div class="s-label">Education</div>
-    <div class="s-title">Academic <span>Background</span></div>
+    <div class="s-title">Academic Background</div>
     <div class="edu-grid">
       <div class="edu-card">
         <div class="edu-level">College</div>

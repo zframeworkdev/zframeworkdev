@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Zaldy Bughaw — Resume</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 10mm 13mm 10mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: 'Inter', Helvetica, Arial, sans-serif; font-size: 8.6pt; line-height: 1.4; color: #1f2937; }
+  a { color: inherit; text-decoration: none; }
+
+  header { display: flex; align-items: center; gap: 16px; padding-bottom: 12px; border-bottom: 2px solid #0f172a; }
+  header img { width: 66px; height: 66px; border-radius: 50%; object-fit: cover; border: 1px solid #cbd5e1; }
+  .id { flex: 1; }
+  h1 { white-space: nowrap; font-size: 20pt; font-weight: 700; letter-spacing: -0.5px; color: #0f172a; line-height: 1.1; }
+  .role { font-size: 11pt; font-weight: 600; color: #1d4ed8; margin-top: 3px; }
+  .contact { white-space: nowrap; text-align: right; font-size: 8.4pt; line-height: 1.6; color: #475569; }
+
+  h2 { font-size: 8.2pt; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: #1d4ed8;
+       border-bottom: 1px solid #cbd5e1; padding-bottom: 3px; margin: 11px 0 6px; break-after: avoid; }
+  .summary { margin-top: 12px; color: #334155; }
+
+  .skills { display: grid; grid-template-columns: 124px 1fr; gap: 2px 10px; }
+  .skills dt { font-weight: 600; color: #0f172a; }
+  .skills dd { color: #334155; }
+
+  .entry { margin-bottom: 7px; break-inside: avoid; }
+  .entry:last-child { margin-bottom: 0; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .org { font-size: 9.8pt; font-weight: 700; color: #0f172a; }
+  .org span { font-weight: 500; color: #475569; }
+  .when, .link { font-size: 8.3pt; color: #64748b; white-space: nowrap; }
+  .link { color: #1d4ed8; }
+  .title { font-weight: 600; color: #334155; margin-bottom: 2px; }
+  .title.sub { font-weight: 500; color: #64748b; font-size: 8.3pt; }
+  ul { list-style: none; }
+  li { position: relative; padding-left: 11px; color: #334155; }
+  li::before { content: ''; position: absolute; left: 1px; top: 0.58em; width: 3.5px; height: 3.5px; border-radius: 50%; background: #64748b; }
+  .stack { font-size: 8pt; color: #64748b; margin-top: 2px; }
+  .stack b { font-weight: 600; color: #475569; }
+
+  .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 22px; }
+  .apps div { color: #334155; }
+  .apps b { font-weight: 600; color: #0f172a; }
+  .edu { display: flex; justify-content: space-between; gap: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="../hosting/profile.jpg" alt="" />
+  <div class="id">
+    <h1>Zaldy Bernabe N. Bughaw</h1>
+    <div class="role">Senior iOS Developer</div>
+  </div>
+  <div class="contact">
+    +63-906-289-7831<br>
+    <a href="mailto:zframeworkdev@gmail.com">zframeworkdev@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/zbughaw/">linkedin.com/in/zbughaw</a><br>
+    Puerto Princesa, Palawan, Philippines
+  </div>
+</header>
+
+<p class="summary">
+  Senior iOS developer building polished, high-performance applications since 2009 — from UIKit and SwiftUI to AI-powered features, SDK integrations, and App Store launches. Alongside client and employer work in health, insurance, legal, and retail, I design, build, and ship my own products end to end: published App Store apps and offline-first point-of-sale platforms for Philippine businesses.
+</p>
+
+<h2>Technical Skills</h2>
+<dl class="skills">
+  <dt>iOS</dt><dd>Swift, SwiftUI, UIKit, Objective-C, WidgetKit, StoreKit 2, HealthKit, CoreMotion, Bluetooth, Persistence</dd>
+  <dt>Architecture</dt><dd>MVVM, Clean Swift, SOLID principles, SDK design, offline-first sync</dd>
+  <dt>Cross-platform &amp; Web</dt><dd>Flutter, React Native, React, TypeScript, Tailwind, PHP / HTML / JS / CSS</dd>
+  <dt>Backend &amp; Data</dt><dd>Firebase (Auth, Firestore, Cloud Functions, Remote Config), PocketBase, SQLite, MongoDB, Elastic Stack</dd>
+  <dt>AI</dt><dd>AI agents, Anthropic Claude API (multimodal vision)</dd>
+  <dt>Tooling</dt><dd>Git, JIRA / Confluence, Swift Packages, CocoaPods, App Store submission and compliance</dd>
+</dl>
+
+<h2>Work Experience</h2>
+
+<div class="entry">
+  <div class="row"><div class="org">Aktivolabs</div><div class="when">2023 – Present</div></div>
+  <div class="title">iOS Engineer</div>
+  <ul>
+    <li>Design and build advanced iOS applications, including proprietary and white-labelled apps.</li>
+    <li>Develop and integrate SDKs that enhance engagement with insurance companies.</li>
+    <li>Collaborate with data scientists, back-end, QA, UI/UX, and product teams; facilitate regular code reviews.</li>
+    <li>Ensure App Store compliance with Apple guidelines and manage submissions.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Acadtech Inc.</div><div class="when">2019 – 2023</div></div>
+  <div class="title">Senior iOS Developer</div>
+  <ul>
+    <li>Built custom UI and animations in UIKit and SwiftUI, wrapping UIKit for SwiftUI where needed.</li>
+    <li>Mentored junior engineers and applied technical expertise to complex design problems.</li>
+    <li>Gathered requirements, wrote technical specs, and led test planning; optimized code for performance.</li>
+    <li>Configured certificates and provisioning profiles and published apps to the App Store.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Microsourcing</div><div class="when">2013 – 2019</div></div>
+  <div class="title">Senior iOS Developer</div>
+  <ul>
+    <li>Built bespoke UIKit components from scratch rather than relying on third-party libraries.</li>
+    <li>Led task delegation in team projects and mentored new members.</li>
+    <li>Ensured adherence to technical design across the development lifecycle, working with PM, UX, and QA in agile sprints.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">PODDCorp</div><div class="when">2009 – 2013</div></div>
+  <div class="title">Lead iOS Developer &amp; Web Developer</div>
+  <ul>
+    <li>Led iOS game development using Cocos2D and Unity3D; integrated a 2D engine for custom UI animations.</li>
+    <li>Ran internal iOS development training and mentored junior engineers.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Playtech Bingames Limited</div><div class="when">2007 – 2009</div></div>
+  <div class="title">Software Engineer &amp; Web Developer</div>
+  <ul>
+    <li>Developed landing pages and an internal web issue-tracking application.</li>
+    <li>Rebranded software applications to client specifications, led QA processes, and authored process documentation.</li>
+  </ul>
+</div>
+
+<h2>Own Products &amp; Ventures</h2>
+
+<div class="entry">
+  <div class="row"><div class="org">QuantumCup <span>— Point of Sale for Cafés &amp; Restaurants</span></div><a class="link" href="https://quantumcup.web.app/">quantumcup.web.app</a></div>
+  <div class="title sub">Founder · Own Product</div>
+  <ul>
+    <li>Subscription POS for Philippine cafés and restaurants: the counter runs on Android tablets, owners see every branch from a web portal.</li>
+    <li>Offline-first — each sale is saved on the device first and synced to the cloud when back online; a private database per business.</li>
+    <li>Recipe-based inventory, QR ordering at the table, shifts and cash counting, role-based access, reports, and Bluetooth receipt printing.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Quantum Store <span>— Point of Sale for Shops &amp; Boutiques</span></div><a class="link" href="https://quantumstore-site.web.app/">quantumstore-site.web.app</a></div>
+  <div class="title sub">Founder · Own Product</div>
+  <ul>
+    <li>Retail sibling of QuantumCup: barcode-driven checkout with USB/Bluetooth scanners or the tablet camera, item variants, and per-variant stock.</li>
+    <li>Supplier receiving, stocktakes with full movement history, a read-only QR catalog for customers, and multi-branch owner reporting.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">JustInCase <span>— Phones &amp; Accessories on Installment</span></div><a class="link" href="https://justincase-site.web.app">justincase-site.web.app</a></div>
+  <div class="title sub">Founder · Full-Stack · In final testing ahead of App Store and Google Play launch</div>
+  <ul>
+    <li>Built every layer solo: Flutter customer app (iOS + Android), React admin dashboard, Firebase backend, and marketing site.</li>
+    <li>Installment lifecycle tracked end to end, appointment-based verification, in-app support messaging, and phone-number OTP sign-in.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Flutter, Riverpod, Firebase, Cloud Functions, React, TypeScript, Tailwind</div>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Vreyo <span>— Ride &amp; Delivery Platform (Philippines)</span></div><a class="link" href="https://vreyo2026.web.app">vreyo2026.web.app</a></div>
+  <div class="title sub">Founder · Full-Stack · Pre-launch</div>
+  <ul>
+    <li>Passenger and driver Flutter apps on one Firebase backend, with real-time dispatch on Firestore streams and distance-based fares.</li>
+    <li>Cloud Functions drive the ride lifecycle, ratings, and promo codes; GCash/Maya payments via PayMongo; React admin portal.</li>
+    <li>Personally handling SEC incorporation, BIR registration, and the LTFRB motorcycle-taxi permit application.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Flutter, Riverpod, Firebase, Cloud Functions, TypeScript, React, PayMongo, Google Maps</div>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Xin Chao Coffee Shop <span>— Offline-First POS &amp; Management System</span></div><div class="when">Client project</div></div>
+  <ul>
+    <li>Custom POS, inventory, reports, and employee management running on a Raspberry Pi in the shop, with encrypted sync to a cloud VPS.</li>
+    <li>Recipe-based stock deduction, role-based access with audit trail, ESC/POS receipt printing, and multi-branch support.</li>
+    <li>Packaged the platform into a licensed, rebrandable Branded Partner Program for other coffee shops, live in 2–3 weeks per partner.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> React, TypeScript, PocketBase, SQLite, Raspberry Pi, Docker, ESC/POS</div>
+</div>
+
+<h2>Published iOS Apps — Sole Developer</h2>
+
+<div class="entry">
+  <div class="row"><div class="org">Luminarys <span>— Daily Quotes &amp; Motivation</span></div><a class="link" href="https://apps.apple.com/us/app/luminarys/id6760375603">App Store</a></div>
+  <ul>
+    <li>Designed, built, and published across iPhone, iPad, Mac (Catalyst), and Apple Vision Pro, with a freemium subscription model.</li>
+    <li>Home Screen Widgets via WidgetKit, a Journal with reflection prompts, notification scheduling, and streak-based engagement.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Swift, SwiftUI, iOS 17+, WidgetKit, StoreKit, UserNotifications</div>
+</div>
+
+<div class="entry">
+  <div class="row"><div class="org">Phorium <span>— AI-Powered Photo Analysis</span></div><a class="link" href="https://apps.apple.com/us/app/phorium/id6761375521">App Store</a></div>
+  <ul>
+    <li>Integrated the Anthropic Claude API for multimodal vision analysis; photos are analyzed but never stored server-side.</li>
+    <li>Apple, Google, and email sign-in via Firebase Auth; StoreKit 2 subscriptions and credit packs; Firestore history and Remote Config flags.</li>
+  </ul>
+  <div class="stack"><b>Stack:</b> Swift, SwiftUI, Anthropic Claude API, Firebase Auth, Firestore, Remote Config, StoreKit 2</div>
+</div>
+
+<h2>Selected iOS Projects</h2>
+<div class="apps">
+  <div><b>Aktivo</b> — health &amp; wellness, Aktivo Score</div>
+  <div><b>Glucolife</b> — diabetes management</div>
+  <div><b>FX1</b> — fan engagement for sports organizations</div>
+  <div><b>ActivePlace</b> — social platform for active lifestyles</div>
+  <div><b>PetNexus</b> — vet-connected pet owner app</div>
+  <div><b>DemandForce</b> — HIPAA-compliant business app</div>
+  <div><b>Martindale Leads Manager</b> — legal CRM</div>
+  <div><b>Sesame Mobile Practice</b> — dental/ortho practice app</div>
+  <div><b>Ben's Bargains</b> / <b>Black Friday Deals</b> — deal discovery</div>
+  <div><b>FitDay</b> — diet &amp; weight-loss journal</div>
+  <div><b>Garage Talk</b> — automotive enthusiast communities</div>
+  <div><b>Officite Doctor Portal</b> — medical practice portal</div>
+</div>
+
+<h2>Achievements</h2>
+<div class="entry">
+  <div class="row"><div class="org">2nd Place — ChupaMobile Worldwide Mobile Programming Contest</div><div class="when">March 2012</div></div>
+  <div>Recognized globally for custom iOS components: iJoystick, ZComboBox, ZWebBrowser, ZQuickLook.</div>
+</div>
+
+<h2>Education</h2>
+<div class="edu"><div><span class="org">B.S. Computer Science</span> — MSU-Iligan Institute of Technology, Iligan City</div><div class="when">March 2007</div></div>
+
+</body>
+</html>
